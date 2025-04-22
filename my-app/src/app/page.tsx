@@ -7,7 +7,7 @@ export default function Home() {
       <main >
         <Card shadow="md" sx={{ background: "var(--mantine-color-red-5)" }}>
           <Text>
-            Init
+            Init lalal
           </Text>
         </Card>
       </main>
