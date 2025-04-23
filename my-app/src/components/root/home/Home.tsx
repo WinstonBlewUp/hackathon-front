@@ -17,6 +17,7 @@ import Link from 'next/link';
 import rooms from '@/data/rooms.json';
 import placeholder from '@/assets/image.png';
 import { FlashLayout } from '@/components/root/FlashLayout';
+import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
 
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 
@@ -69,6 +70,8 @@ export default function Home() {
             <IconArrowRight size={16} />
           </Flex>
         }/>
+
+        <CurrentlyAvailable />
 
       </Stack>
     </Container>

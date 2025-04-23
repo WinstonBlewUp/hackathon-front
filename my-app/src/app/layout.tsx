@@ -21,13 +21,13 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <RootStyleRegistry>
           <MantineEmotionProvider>
             <MantineProvider stylesTransform={emotionTransform}>
-              <Box px="xl" py="md">
+              <Box py="md">
                 <main>
-                  <Input size="md" radius="xl" placeholder="Input component" mb="xl" />
+               
                   <Stack gap={100}>
 
                     {children}

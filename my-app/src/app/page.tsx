@@ -7,11 +7,9 @@ import HomeComponent from "../components/root/home/Home";
 export default function Home() {
   return (
     <>
-      {/* <FlashLayout /> */}
-
       <HomeComponent />
 
-      <Stack component='article' >
+      {/* <Stack component='article' >
         <Flex align='baseline' justify='space-between'>
           <Title order={2}>
             Nos chambres populaires
@@ -27,7 +25,7 @@ export default function Home() {
             </Card>
           )}
         </SimpleGrid>
-      </Stack>
+      </Stack> */}
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }}>
         {categories.map((category, key) =>
           <Center bg={`${category.color}.3`} w={300} h={300} sx={{ borderRadius: "var(--mantine-radius-md)", }} mx="auto" key={key}>
