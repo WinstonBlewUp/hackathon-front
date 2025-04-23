@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import '@mantine/core/styles.css';
 
-import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from "@mantine/core";
+import { Box, ColorSchemeScript, Input, mantineHtmlProps, MantineProvider, Stack } from "@mantine/core";
 import { RootStyleRegistry } from "./EmotionRootStyleRegistry";
 import { emotionTransform, MantineEmotionProvider } from "@mantine/emotion";
 
@@ -24,9 +24,17 @@ export default function RootLayout({
       <body>
         <RootStyleRegistry>
           <MantineEmotionProvider>
-
             <MantineProvider stylesTransform={emotionTransform}>
-              {children}
+              <Box px="xl" py="md">
+                <main>
+                  <Input size="md" radius="xl" placeholder="Input component" mb="xl" />
+                  <Stack gap={100}>
+
+                    {children}
+                  </Stack>
+                </main>
+
+              </Box>
             </MantineProvider>
           </MantineEmotionProvider>
         </RootStyleRegistry>

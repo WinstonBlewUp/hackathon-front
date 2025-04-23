@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "hotelName": "Hôtel du Soleil",
+    "roomName": "Chambre Supérieure",
+    "availableDates": ["2025-05-01", "2025-05-03", "2025-05-07"],
+    "image": "https://example.com/images/soleil-superieure.jpg"
+  },
+  {
+    "id": 2,
+    "hotelName": "Le Grand Chalet",
+    "roomName": "Suite Montagne",
+    "availableDates": ["2025-05-02", "2025-05-05", "2025-05-08"],
+    "image": "https://example.com/images/grand-chalet-suite.jpg"
+  },
+  {
+    "id": 3,
+    "hotelName": "Palais Riviera",
+    "roomName": "Chambre Deluxe Vue Mer",
+    "availableDates": ["2025-05-01", "2025-05-04", "2025-05-06"],
+    "image": "https://example.com/images/riviera-deluxe.jpg"
+  },
+  {
+    "id": 4,
+    "hotelName": "Villa Romantica",
+    "roomName": "Junior Suite",
+    "availableDates": ["2025-05-03", "2025-05-05", "2025-05-09"],
+    "image": "https://example.com/images/romantica-junior.jpg"
+  },
+  {
+    "id": 5,
+    "hotelName": "Urban Hôtel",
+    "roomName": "Chambre Standard",
+    "availableDates": ["2025-05-02", "2025-05-06", "2025-05-10"],
+    "image": "https://example.com/images/urban-standard.jpg"
+  },
+  {
+    "id": 6,
+    "hotelName": "Auberge des Cimes",
+    "roomName": "Suite Panoramique",
+    "availableDates": ["2025-05-01", "2025-05-07", "2025-05-08"],
+    "image": "https://example.com/images/cimes-panoramique.jpg"
+  },
+  {
+    "id": 7,
+    "hotelName": "Hôtel Belle Époque",
+    "roomName": "Chambre Élégante",
+    "availableDates": ["2025-05-04", "2025-05-05", "2025-05-06"],
+    "image": "https://example.com/images/belle-epoque-elegante.jpg"
+  },
+  {
+    "id": 8,
+    "hotelName": "Les Jardins Secrets",
+    "roomName": "Chambre Jardin",
+    "availableDates": ["2025-05-03", "2025-05-06", "2025-05-09"],
+    "image": "https://example.com/images/jardins-jardin.jpg"
+  },
+  {
+    "id": 9,
+    "hotelName": "Rêve Bleu Resort",
+    "roomName": "Villa Privée",
+    "availableDates": ["2025-05-01", "2025-05-04", "2025-05-07"],
+    "image": "https://example.com/images/reve-bleu-villa.jpg"
+  },
+  {
+    "id": 1,
+    "hotelName": "Château de la Lune",
+    "roomName": "Suite Royale",
+    "availableDates": ["2025-05-02", "2025-05-06", "2025-05-10"],
+    "image": "https://example.com/images/lune-royale.jpg"
+  }
+]
