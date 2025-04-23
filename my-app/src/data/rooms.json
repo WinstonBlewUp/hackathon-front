@@ -6,7 +6,8 @@
     "price": 185,
     "description": "Baignée de lumière naturelle, notre Chambre Supérieure de 28m² offre une atmosphère chaleureuse et contemporaine. Profitez d'un lit king-size avec literie premium, d'une salle de bain en marbre avec douche à l'italienne, et d'une vue imprenable sur les jardins de l'hôtel. Idéale pour les voyageurs en quête de confort et d'élégance.",
     "availableDates": ["2025-05-01", "2025-05-03", "2025-05-07"],
-    "image": "https://example.com/images/soleil-superieure.jpg"
+    "image": "https://example.com/images/soleil-superieure.jpg",
+    "status":"free"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "price": 320,
     "description": "Nichée au cœur des Alpes, notre Suite Montagne de 45m² allie authenticité alpine et luxe contemporain. L'intérieur en bois noble offre un salon séparé avec cheminée, une chambre avec lit queen-size et une terrasse privative face aux sommets enneigés. Le parfait cocon après une journée sur les pistes ou les sentiers de randonnée.",
     "availableDates": ["2025-05-02", "2025-05-05", "2025-05-08"],
-    "image": "https://example.com/images/grand-chalet-suite.jpg"
+    "image": "https://example.com/images/grand-chalet-suite.jpg",
+    "status":"booked"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "price": 275,
     "description": "Plongez dans l'azur depuis notre Chambre Deluxe Vue Mer de 35m². Son balcon privé offre une vue panoramique sur la Méditerranée, tandis que l'intérieur raffiné aux tons bleutés invite à la détente. Équipée d'un lit king-size, d'une salle de bain en marbre avec baignoire et douche séparée, cette chambre incarne l'élégance de la Côte d'Azur.",
     "availableDates": ["2025-05-01", "2025-05-04", "2025-05-06"],
-    "image": "https://example.com/images/riviera-deluxe.jpg"
+    "image": "https://example.com/images/riviera-deluxe.jpg",
+    "status":"free"
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "price": 230,
     "description": "Notre Junior Suite de 40m² est un écrin de romantisme dans un cadre historique. Avec ses hauts plafonds ornés de moulures, son coin salon confortable et son lit à baldaquin, elle offre une expérience unique alliant charme d'antan et confort moderne. Les fenêtres donnent sur une cour intérieure fleurie, préservant calme et intimité.",
     "availableDates": ["2025-05-03", "2025-05-05", "2025-05-09"],
-    "image": "https://example.com/images/romantica-junior.jpg"
+    "image": "https://example.com/images/romantica-junior.jpg",
+    "status":"free"
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "price": 125,
     "description": "Fonctionnelle et design, notre Chambre Standard de 22m² est parfaite pour les voyageurs urbains. L'espace optimisé comprend un lit double confortable, un bureau ergonomique et une salle de douche moderne. Les grandes fenêtres insonorisées offrent une vue sur le dynamisme de la ville tout en garantissant une nuit paisible au cœur de l'action.",
     "availableDates": ["2025-05-02", "2025-05-06", "2025-05-10"],
-    "image": "https://example.com/images/urban-standard.jpg"
+    "image": "https://example.com/images/urban-standard.jpg",
+    "status":"booked"
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "price": 295,
     "description": "Perchée à 1800m d'altitude, notre Suite Panoramique de 50m² offre une immersion totale dans la majesté des montagnes. Sa particularité : des baies vitrées sur trois côtés offrant une vue à 180° sur les sommets. L'espace comprend une chambre avec lit king-size, un salon avec poêle à bois, et une salle de bain avec baignoire vue montagne pour une expérience alpine incomparable.",
     "availableDates": ["2025-05-01", "2025-05-07", "2025-05-08"],
-    "image": "https://example.com/images/cimes-panoramique.jpg"
+    "image": "https://example.com/images/cimes-panoramique.jpg",
+    "status":"free"
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "price": 210,
     "description": "Voyagez dans le temps avec notre Chambre Élégante de 30m² qui célèbre l'art de vivre Belle Époque. Les meubles d'époque restaurés, les étoffes précieuses et le parquet en chêne créent une ambiance raffinée. Le lit queen-size avec tête de lit capitonnée, le secrétaire antique et la salle de bain en marbre avec baignoire sur pieds évoquent le luxe d'antan avec une touche contemporaine.",
     "availableDates": ["2025-05-04", "2025-05-05", "2025-05-06"],
-    "image": "https://example.com/images/belle-epoque-elegante.jpg"
+    "image": "https://example.com/images/belle-epoque-elegante.jpg",
+    "status":"booked"
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@
     "price": 195,
     "description": "Notre Chambre Jardin de 32m² est une invitation à la sérénité, avec accès direct à une terrasse privative au cœur de notre jardin botanique. L'intérieur aux tons verts apaisants et matériaux naturels crée une ambiance biophilique. Le lit queen-size, le coin lecture et la salle de bain avec douche à effet pluie complètent ce havre de paix où nature et confort se rencontrent.",
     "availableDates": ["2025-05-03", "2025-05-06", "2025-05-09"],
-    "image": "https://example.com/images/jardins-jardin.jpg"
+    "image": "https://example.com/images/jardins-jardin.jpg",
+    "status":"free"
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@
     "price": 450,
     "description": "Expérience ultime du luxe, notre Villa Privée de 75m² est un sanctuaire d'intimité avec piscine à débordement personnelle. L'architecture contemporaine s'ouvre sur un panorama océanique à couper le souffle. L'espace comprend une chambre principale avec lit king-size, un salon spacieux, une kitchenette équipée et une terrasse aménagée, le tout à quelques pas d'une plage privative.",
     "availableDates": ["2025-05-01", "2025-05-04", "2025-05-07"],
-    "image": "https://example.com/images/reve-bleu-villa.jpg"
+    "image": "https://example.com/images/reve-bleu-villa.jpg",
+    "status":"booked"
   },
   {
     "id": 10,
@@ -87,6 +96,7 @@
     "price": 380,
     "description": "Logez comme un monarque dans notre Suite Royale de 60m² située dans la tour principale de ce château du XVIIIe siècle. Le mobilier d'époque, les tapisseries et les œuvres d'art créent un cadre somptueux. La chambre avec lit king-size à colonnes, le salon avec cheminée d'origine et la salle de bain avec baignoire centrale offrent une expérience princière alliant histoire et confort moderne.",
     "availableDates": ["2025-05-02", "2025-05-06", "2025-05-10"],
-    "image": "https://example.com/images/lune-royale.jpg"
+    "image": "https://example.com/images/lune-royale.jpg",
+    "status":"free"
   }
 ]
