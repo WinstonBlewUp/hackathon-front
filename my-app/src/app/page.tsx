@@ -3,11 +3,13 @@ import categories from "../data/categories.json"
 import rooms from "../data/rooms.json"
 import placeholder from "../assets/image.png"
 import { FlashLayout } from "@/components/root/FlashLayout";
+import TestRequest from "@/components/root/testRequest/testRequest";
 // OPEN GDS
 export default function Home() {
   return (
     <>
       <FlashLayout />
+      <TestRequest />
       <Stack component='article' >
         <Flex align='baseline' justify='space-between'>
           <Title order={2}>
