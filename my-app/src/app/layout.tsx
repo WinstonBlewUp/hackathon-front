@@ -22,7 +22,7 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <RootStyleRegistry>
           <MantineEmotionProvider>
             <MantineProvider stylesTransform={emotionTransform}>
@@ -39,9 +39,9 @@ export default function RootLayout({
                 </main>
               </Box>
             </MantineProvider>
-          </MantineEmotionProvider>
-        </RootStyleRegistry>
-      </body>
-    </html>
+          </MantineEmotionProvider >
+        </RootStyleRegistry >
+      </body >
+    </html >
   );
 }
