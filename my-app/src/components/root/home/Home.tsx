@@ -13,13 +13,13 @@ import {
   ScrollArea,
   Group,
 } from '@mantine/core';
-import { IconSearch } from '@tabler/icons-react';
 import Link from 'next/link';
 import rooms from '@/data/rooms.json';
 import placeholder from '@/assets/image.png';
 import { FlashLayout } from '@/components/root/FlashLayout';
 
-import { IconArrowRight } from '@tabler/icons-react';
+import { IconArrowRight, IconSearch } from '@tabler/icons-react';
+
 import { Flex} from '@mantine/core';
 
 export default function Home() {
@@ -32,9 +32,19 @@ export default function Home() {
     <Container size="lg" py="xl">
       <Stack gap="xl">
         <Stack gap="xs">
-          <Title order={1} fz="36px">
-            Matchroom
-          </Title>
+        <Title
+          order={1}
+          fz="90px"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            lineHeight: 0.7,
+            gap: 0,
+          }}
+        >
+          <span style={{ whiteSpace: 'nowrap' }}>Match</span>
+          <span style={{ whiteSpace: 'nowrap' }}>room</span>
+        </Title>
           <Text size="lg" color="dimmed">
             Matchez avec votre Hôtel
           </Text>
@@ -44,6 +54,8 @@ export default function Home() {
           placeholder="Rechercher une salle…"
           value={search}
           onChange={(e) => setSearch(e.currentTarget.value)}
+          rightSection={<IconSearch size={16} />}
+          leftSectionWidth={32}
         />
 
         <FlashLayout 
