@@ -12,6 +12,7 @@ import {
   Image,
   ScrollArea,
   Group,
+  Box,
 } from '@mantine/core';
 import Link from 'next/link';
 import rooms from '@/data/rooms.json';
@@ -21,7 +22,7 @@ import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
 
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 
-import { Flex} from '@mantine/core';
+import { Flex } from '@mantine/core';
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -30,22 +31,22 @@ export default function Home() {
   );
 
   return (
-    <Container size="lg" py="xl">
+    <Box w="100%" py="xl">
       <Stack gap="xl">
         <Stack gap="xs">
-        <Title
-          order={1}
-          fz="90px"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            lineHeight: 0.7,
-            gap: 0,
-          }}
-        >
-          <span style={{ whiteSpace: 'nowrap' }}>Match</span>
-          <span style={{ whiteSpace: 'nowrap' }}>room</span>
-        </Title>
+          <Title
+            order={1}
+            fz="90px"
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              lineHeight: 0.7,
+              gap: 0,
+            }}
+          >
+            <span style={{ whiteSpace: 'nowrap' }}>Match</span>
+            <span style={{ whiteSpace: 'nowrap' }}>room</span>
+          </Title>
           <Text size="lg" color="dimmed">
             Matchez avec votre Hôtel
           </Text>
@@ -59,21 +60,21 @@ export default function Home() {
           leftSectionWidth={32}
         />
 
-        <FlashLayout 
-        title='vente flash'
-        direction='row'
-        badge={
-          <Flex align="center" gap="xs">
-            <Text size="sm" fw={500}>
-             voir tout
-            </Text>
-            <IconArrowRight size={16} />
-          </Flex>
-        }/>
+        <FlashLayout
+          title='vente flash'
+          direction='row'
+          badge={
+            <Flex align="center" gap="xs">
+              <Text size="sm" fw={500}>
+                voir tout
+              </Text>
+              <IconArrowRight size={16} />
+            </Flex>
+          } />
 
         <CurrentlyAvailable />
 
       </Stack>
-    </Container>
+    </Box>
   );
 }

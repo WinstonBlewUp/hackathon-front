@@ -3,6 +3,7 @@
     "id": 1,
     "hotelName": "Hôtel du Soleil",
     "roomName": "Chambre Supérieure",
+    "price": 185,
     "availableDates": ["2025-05-01", "2025-05-03", "2025-05-07"],
     "image": "https://example.com/images/soleil-superieure.jpg"
   },
@@ -10,6 +11,7 @@
     "id": 2,
     "hotelName": "Le Grand Chalet",
     "roomName": "Suite Montagne",
+    "price": 320,
     "availableDates": ["2025-05-02", "2025-05-05", "2025-05-08"],
     "image": "https://example.com/images/grand-chalet-suite.jpg"
   },
@@ -17,6 +19,7 @@
     "id": 3,
     "hotelName": "Palais Riviera",
     "roomName": "Chambre Deluxe Vue Mer",
+    "price": 275,
     "availableDates": ["2025-05-01", "2025-05-04", "2025-05-06"],
     "image": "https://example.com/images/riviera-deluxe.jpg"
   },
@@ -24,6 +27,7 @@
     "id": 4,
     "hotelName": "Villa Romantica",
     "roomName": "Junior Suite",
+    "price": 230,
     "availableDates": ["2025-05-03", "2025-05-05", "2025-05-09"],
     "image": "https://example.com/images/romantica-junior.jpg"
   },
@@ -31,6 +35,7 @@
     "id": 5,
     "hotelName": "Urban Hôtel",
     "roomName": "Chambre Standard",
+    "price": 125,
     "availableDates": ["2025-05-02", "2025-05-06", "2025-05-10"],
     "image": "https://example.com/images/urban-standard.jpg"
   },
@@ -38,6 +43,7 @@
     "id": 6,
     "hotelName": "Auberge des Cimes",
     "roomName": "Suite Panoramique",
+    "price": 295,
     "availableDates": ["2025-05-01", "2025-05-07", "2025-05-08"],
     "image": "https://example.com/images/cimes-panoramique.jpg"
   },
@@ -45,6 +51,7 @@
     "id": 7,
     "hotelName": "Hôtel Belle Époque",
     "roomName": "Chambre Élégante",
+    "price": 210,
     "availableDates": ["2025-05-04", "2025-05-05", "2025-05-06"],
     "image": "https://example.com/images/belle-epoque-elegante.jpg"
   },
@@ -52,6 +59,7 @@
     "id": 8,
     "hotelName": "Les Jardins Secrets",
     "roomName": "Chambre Jardin",
+    "price": 195,
     "availableDates": ["2025-05-03", "2025-05-06", "2025-05-09"],
     "image": "https://example.com/images/jardins-jardin.jpg"
   },
@@ -59,13 +67,15 @@
     "id": 9,
     "hotelName": "Rêve Bleu Resort",
     "roomName": "Villa Privée",
+    "price": 450,
     "availableDates": ["2025-05-01", "2025-05-04", "2025-05-07"],
     "image": "https://example.com/images/reve-bleu-villa.jpg"
   },
   {
-    "id": 1,
+    "id": 10,
     "hotelName": "Château de la Lune",
     "roomName": "Suite Royale",
+    "price": 380,
     "availableDates": ["2025-05-02", "2025-05-06", "2025-05-10"],
     "image": "https://example.com/images/lune-royale.jpg"
   }
