@@ -32,7 +32,6 @@ export default function RootLayout({
               <Space h={50} />
               <Box px="xl" py="md">
                 <main>
-                  <Input size="md" radius="xl" placeholder="Input component" mb="xl" />
                   <Stack gap={100}>
                     {children}
                   </Stack>
