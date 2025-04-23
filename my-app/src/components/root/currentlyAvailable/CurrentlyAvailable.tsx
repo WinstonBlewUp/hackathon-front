@@ -14,13 +14,13 @@ export const CurrentlyAvailable = () => {
 
       <GridLayout cols={{ base: 1, sm: 2, lg: 3 }}>
         {rooms.slice(0, 5).map((room, index) => (
-          <Box component={Link} href={`/room/${room.id}`} sx={{
+          <Box component={Link} key={index} href={`/room/${room.id}`} sx={{
             transition: "transform 0.3s ease",
             display: "block",
             "&:hover": { transform: "scale(1.1)" },
             textDecoration: "none"
           }}  >
-            <CardRoomComponent key={index} price={room.price} name={room.hotelName} picture={placeholder.src} h={200} />
+            <CardRoomComponent price={room.price} name={room.hotelName} picture={placeholder.src} h={200} />
           </Box>
         ))}
       </GridLayout>
