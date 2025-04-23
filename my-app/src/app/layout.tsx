@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import { Box, ColorSchemeScript, Input, mantineHtmlProps, MantineProvider, Space, Stack } from "@mantine/core";
+import '@mantine/carousel/styles.css';
+import { Box, ColorSchemeScript, mantineHtmlProps, MantineProvider, Space, Stack } from "@mantine/core";
 import { RootStyleRegistry } from "./EmotionRootStyleRegistry";
 import { emotionTransform, MantineEmotionProvider } from "@mantine/emotion";
 import { HeaderComponent } from "@/components/HeaderComponent";
@@ -24,13 +25,13 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <RootStyleRegistry>
-          <MantineEmotionProvider>
-            <MantineProvider stylesTransform={emotionTransform}>
+          <MantineEmotionProvider >
+            <MantineProvider stylesTransform={emotionTransform} defaultColorScheme="dark">
               <header>
                 <HeaderComponent />
               </header>
               <Space h={50} />
-              <Box px="xl" py="md">
+              <Box px={{ base: 20, lg: 50 }} py="md">
                 <main>
                   <Stack gap={100}>
                     {children}
