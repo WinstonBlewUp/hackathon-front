@@ -2,13 +2,14 @@ import { Card, CardSection, Center, Flex, Image, SimpleGrid, Stack, Text, Title 
 import categories from "../data/categories.json"
 import rooms from "../data/rooms.json"
 import placeholder from "../assets/image.png"
-import { FlashLayout } from "@/components/root/FlashLayout";
+import HomeComponent from "../components/root/home/Home";
 // OPEN GDS
 export default function Home() {
   return (
     <>
-      <FlashLayout />
-      <Stack component='article' >
+      <HomeComponent />
+
+      {/* <Stack component='article' >
         <Flex align='baseline' justify='space-between'>
           <Title order={2}>
             Nos chambres populaires
@@ -24,7 +25,7 @@ export default function Home() {
             </Card>
           )}
         </SimpleGrid>
-      </Stack>
+      </Stack> */}
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }}>
         {categories.map((category, key) =>
           <Center bg={`${category.color}.3`} w={300} h={300} sx={{ borderRadius: "var(--mantine-radius-md)", }} mx="auto" key={key}>
