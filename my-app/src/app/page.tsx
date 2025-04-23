@@ -2,12 +2,15 @@ import { Card, CardSection, Center, Flex, Group, Image, Input, Paper, SimpleGrid
 import categories from "../data/categories.json"
 import rooms from "../data/rooms.json"
 import placeholder from "../assets/image.png"
-import { FlashLayout } from "@/components/root/FlashLayout";
+import HomeComponent from "../components/root/home/Home";
 // OPEN GDS
 export default function Home() {
   return (
     <>
-      <FlashLayout />
+      {/* <FlashLayout /> */}
+
+      <HomeComponent />
+
       <Stack component='article' >
         <Flex align='baseline' justify='space-between'>
           <Title order={2}>
