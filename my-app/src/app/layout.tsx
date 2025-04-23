@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import { Box, ColorSchemeScript, Input, mantineHtmlProps, MantineProvider, Stack } from "@mantine/core";
+import { Box, ColorSchemeScript, Input, mantineHtmlProps, MantineProvider, Space, Stack } from "@mantine/core";
 import { RootStyleRegistry } from "./EmotionRootStyleRegistry";
 import { emotionTransform, MantineEmotionProvider } from "@mantine/emotion";
+import { HeaderComponent } from "@/components/HeaderComponent";
 
 
 export const metadata: Metadata = {
@@ -25,15 +26,17 @@ export default function RootLayout({
         <RootStyleRegistry>
           <MantineEmotionProvider>
             <MantineProvider stylesTransform={emotionTransform}>
+              <header>
+                <HeaderComponent />
+              </header>
+              <Space h={50} />
               <Box px="xl" py="md">
                 <main>
                   <Input size="md" radius="xl" placeholder="Input component" mb="xl" />
                   <Stack gap={100}>
-
                     {children}
                   </Stack>
                 </main>
-
               </Box>
             </MantineProvider>
           </MantineEmotionProvider>
