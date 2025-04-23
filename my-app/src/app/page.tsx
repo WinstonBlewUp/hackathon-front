@@ -1,4 +1,4 @@
-import { Card, CardSection, Center, Flex, Group, Image, Input, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Card, CardSection, Center, Flex, Image, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import categories from "../data/categories.json"
 import rooms from "../data/rooms.json"
 import placeholder from "../assets/image.png"
