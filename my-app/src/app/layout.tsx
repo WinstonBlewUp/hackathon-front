@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import '@mantine/core/styles.css';
-
+import '@mantine/dates/styles.css';
 import { Box, ColorSchemeScript, Input, mantineHtmlProps, MantineProvider, Stack } from "@mantine/core";
 import { RootStyleRegistry } from "./EmotionRootStyleRegistry";
 import { emotionTransform, MantineEmotionProvider } from "@mantine/emotion";
