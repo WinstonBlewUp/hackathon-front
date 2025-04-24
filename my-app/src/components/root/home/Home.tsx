@@ -12,11 +12,14 @@ import {
 import rooms from '@/data/rooms.json';
 import { FlashLayout } from '@/components/root/FlashLayout';
 import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
+import { SearchBar } from '../searchbar/Searchbar';
 
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 
 import { Flex } from '@mantine/core';
 import { CategoriesLayout } from '../CategoriesLayout';
+import { link } from 'fs';
+import Link from 'next/link';
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -49,14 +52,8 @@ export default function Home() {
             </Text>
           </Stack>
 
-          <TextInput
-            placeholder="Rechercher une salle…"
-            value={search}
-            onChange={(e) => setSearch(e.currentTarget.value)}
-            rightSection={<IconSearch size={16} />}
-            leftSectionWidth={32}
-          />
-          <Box>
+        <SearchBar />
+
 
             <Text>Recherchez une chambre disponible aux dates et destinations de votre choix.</Text>
             <Text fw="bold" fz="xl">Négociez et Réservez.</Text>
@@ -66,13 +63,15 @@ export default function Home() {
           title='Last minute'
           direction='row'
           badge={
-            <Flex align="center" gap="xs">
-              <Text size="sm" fw={500}>
-                voir tout
-              </Text>
-              <IconArrowRight size={16} />
-            </Flex>
-          } />
+            <Link href="/results" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Flex align="center" gap="xs">
+                <Text size="sm" fw={500}>
+                  voir tout
+                </Text>
+                <IconArrowRight size={16} />
+              </Flex>
+            </Link>
+          } ></FlashLayout>
         <CategoriesLayout />
         <CurrentlyAvailable />
 
