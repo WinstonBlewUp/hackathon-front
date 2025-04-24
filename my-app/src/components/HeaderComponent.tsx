@@ -45,8 +45,8 @@ const AllLink = () => {
             <Button variant='transparent' component={Link} href={"/quiz"} sx={{ ["&:hover"]: { textDecoration: "underline" } }} color={page === "quiz" ? "red" : "black"} >
                 Quiz
             </Button>
-            <Button variant='transparent' component={Link} href={"/negocation"} sx={{ ["&:hover"]: { textDecoration: "underline" } }} color={page === "negocation" ? "red" : "black"} >
-                Négocation
+            <Button variant='transparent' component={Link} href={"/negotiation"} sx={{ ["&:hover"]: { textDecoration: "underline" } }} color={page === "negotiation" ? "red" : "black"} >
+                Négociation
             </Button>
             <Button variant='transparent' component={Link} href={"/profile"} sx={{ ["&:hover"]: { textDecoration: "underline" } }} color={page === "profile" ? "red" : "black"} >
                 Mon Compte
