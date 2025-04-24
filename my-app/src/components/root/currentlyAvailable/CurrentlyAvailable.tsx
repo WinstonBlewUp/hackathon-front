@@ -1,7 +1,7 @@
 /* 'use client';
 
 import { Title, Card, Image, Text, Stack, Box } from '@mantine/core';
-import { GridLayout } from '../../root/grid/Grid';
+import { GridLayout } from '../grid/Grid';
 import rooms from '@/data/rooms.json';
 import placeholder from '@/assets/image.png';
 import { CardRoomComponent } from '@/components/CardRoomComponent';

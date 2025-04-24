@@ -3,26 +3,21 @@
 
 import React, { useState } from 'react';
 import {
-  Container,
   Stack,
   Title,
   Text,
   TextInput,
-  Card,
-  Image,
-  ScrollArea,
-  Group,
   Box,
 } from '@mantine/core';
-import Link from 'next/link';
 import rooms from '@/data/rooms.json';
-import placeholder from '@/assets/image.png';
 import { FlashLayout } from '@/components/root/FlashLayout';
 import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
+import { SearchBar } from '../searchbar/Searchbar';
 
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 
 import { Flex } from '@mantine/core';
+import { CategoriesLayout } from '../CategoriesLayout';
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -52,13 +47,14 @@ export default function Home() {
           </Text>
         </Stack>
 
-        <TextInput
+        {/* <TextInput
           placeholder="Rechercher une salle…"
           value={search}
           onChange={(e) => setSearch(e.currentTarget.value)}
           rightSection={<IconSearch size={16} />}
           leftSectionWidth={32}
-        />
+        /> */}
+        <SearchBar />
 
         <FlashLayout
           title='vente flash'
@@ -71,7 +67,7 @@ export default function Home() {
               <IconArrowRight size={16} />
             </Flex>
           } />
-
+        <CategoriesLayout />
         <CurrentlyAvailable />
 
       </Stack>
