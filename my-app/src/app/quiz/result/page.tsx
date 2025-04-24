@@ -1,13 +1,11 @@
-
-import { BackgroundImage, Box, Button, Stack, Text } from "@mantine/core";
+import { Button, Stack, Text } from "@mantine/core";
 import placeholder from "../../../assets/image.png"
 import { CardRoomComponent } from "@/components/CardRoomComponent";
 export default function QuizResult() {
     return (
         <Stack>
             <Text tt="uppercase" ta="center" size="xl" fw="bold">C'est un Match !</Text>
-
-            <CardRoomComponent price={100} name="Novotel" picture={placeholder.src} h="65vh" />
+            <CardRoomComponent info={{ price: 100, name: "Novotel" }} picture={placeholder.src} h="65vh" />
             <Button>Voir la chambre</Button>
             <Button variant="outline">Regénérer</Button>
         </Stack>

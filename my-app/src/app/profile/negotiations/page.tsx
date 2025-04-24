@@ -1,7 +1,7 @@
 import { Box, Stack, Title } from "@mantine/core";
 import { CardNegotiation } from "@/components/negotiation/CardNegotiation";
-import rooms from "../../data/rooms.json"
-import placeholder from "../../assets/image.png"
+import rooms from "../../../data/rooms.json"
+import placeholder from "../../../assets/image.png"
 export default function Negotiation() {
     return (
         <>

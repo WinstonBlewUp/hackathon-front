@@ -45,6 +45,7 @@ export const CurrentlyAvailable = ({ rooms, hideTitle = false }: CurrentlyAvaila
               picture={room.image || '/placeholder.png'}
               h={200}
             />
+
           </Box>
         ))}
       </GridLayout>
