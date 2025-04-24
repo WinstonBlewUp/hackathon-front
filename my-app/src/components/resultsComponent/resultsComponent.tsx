@@ -2,7 +2,7 @@
 
 import { Box, Title } from '@mantine/core';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { CurrentlyAvailable } from '@/components/root/currentlyAvailable/CurrentlyAvailable';
+import { CurrentlyAvailable } from '@/components/currentlyAvailable/CurrentlyAvailable';
 import rooms from '@/data/rooms.json';
 import { useMediaQuery } from '@mantine/hooks';
 import L from 'leaflet';
@@ -24,9 +24,9 @@ export const ResultsComponent = ({ query }: ResultsComponentProps) => {
   const availableRooms = rooms.filter((room) => room.status === 'free');
   const filteredRooms = query
     ? availableRooms.filter((r) =>
-        r.hotelName.toLowerCase().includes(query.toLowerCase()) ||
-        r.roomName.toLowerCase().includes(query.toLowerCase())
-      )
+      r.hotelName.toLowerCase().includes(query.toLowerCase()) ||
+      r.roomName.toLowerCase().includes(query.toLowerCase())
+    )
     : availableRooms;
 
   const defaultPosition: [number, number] = [43.2965, 5.3698];

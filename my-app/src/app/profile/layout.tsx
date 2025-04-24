@@ -5,6 +5,7 @@ import { Box, Stack } from "@mantine/core";
 
 export default async function ProfileLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerSession(authOptions);
+    console.log(session)
     if (!session) redirect("/login")
     return <Stack gap="lg" mt="xl">{children}</Stack>;
 }

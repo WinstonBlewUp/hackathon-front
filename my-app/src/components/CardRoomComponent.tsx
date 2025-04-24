@@ -3,18 +3,19 @@ import { ActionIcon, BackgroundImage, BackgroundImageProps, Box, Stack, Text } f
 import { IconHeart } from "@tabler/icons-react"
 import placeholder from "../assets/image.png"
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 
 
 export type CardRoomComponentProps = RoomData & Omit<BackgroundImageProps, 'src'>
-export const CardRoomComponent = ({ name, basePrice, id, users, ...props }: CardRoomComponentProps) => {
+export const CardRoomComponent = ({ name, basePrice, id, users, maxGuests, ...props }: CardRoomComponentProps) => {
     const { data: session } = useSession();
-    const isLike = false
-    if (session) {
-        users.some((user) => user.split("/")[2] === session.user.id)
+    let isLike = false
+    if (session && users) {
+        isLike = users.some((user) => user.split("/")[3] === session.user.id)
     }
     return (
 
-        <BackgroundImage src={placeholder.src} radius="md" w="100%" h="100%" sx={{ overflow: "hidden" }} {...props} >
+        <BackgroundImage src={placeholder.src} radius="md" w="100%" h="100%" sx={{ overflow: "hidden" }} {...props} component={Link} href={`/room/${id}`} >
             <Box sx={{
                 background: "linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 129%)",
                 display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "end",

@@ -59,7 +59,7 @@ export const getCategories = async (): Promise<ApiResponse<Category[]>> => {
   }
 };
 
-export const getLastMinute = async () => {
+export const getRoomLastMinute = async () => {
   try {
     const response = await instance.get("/rooms/lastminute");
     console.log(response.data.member);
@@ -69,11 +69,10 @@ export const getLastMinute = async () => {
     return { success: false, data: [], error: "Erreur de connexion" };
   }
 };
-export const getRecommandation = async (user_id: string) => {
+export const getRoomRecommandation = async (user_id?: string) => {
   try {
-    const response = await instance.get(`/rooms/${user_id}/recommendation`);
-    console.log(response.data.member);
-    return { success: true, data: response.data.member };
+    const response = await instance.get(`/rooms/${user_id}/recommandation`);
+    return { success: true, data: response.data };
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories", error);
     return { success: false, data: [], error: "Erreur de connexion" };
@@ -90,9 +89,18 @@ export const getTotalNights = async (user_id: number) => {
   }
 };
 
-export const getRoomLike = async (user_id: number) => {
+export const getRoomLike = async (user_id: string) => {
   try {
     const response = await instance.get(`/like/${user_id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+export const getRoom = async (room_id: string) => {
+  try {
+    const response = await instance.get(`/rooms/${room_id}`);
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories", error);

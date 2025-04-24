@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Container, Stack, Title, Divider } from '@mantine/core';
-import { CurrentlyAvailable } from '@/components/root/currentlyAvailable/CurrentlyAvailable';
+import { CurrentlyAvailable } from '@/components/currentlyAvailable/CurrentlyAvailable';
 import { NegotiationOverview } from '../negociations/negociationOverview';
 
 const HotelDashboard = () => {

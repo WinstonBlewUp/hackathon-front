@@ -8,17 +8,14 @@ import {
   Box,
 } from '@mantine/core';
 import { FlashLayout } from '@/components/root/FlashLayout';
-import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
 import { SearchBar } from '../searchbar/Searchbar';
 import { IconArrowRight } from '@tabler/icons-react';
 import { Flex } from '@mantine/core';
 import { CategoriesLayout } from '../CategoriesLayout';
 import Link from 'next/link';
+import { Recommendation } from '../Recommendation';
 
 export default function Home() {
-
-
-
   return (
     <Box w="100%">
       <Stack gap="xl">
@@ -65,8 +62,7 @@ export default function Home() {
             </Link>
           } ></FlashLayout>
         <CategoriesLayout />
-        <CurrentlyAvailable />
-
+        <Recommendation />
       </Stack>
     </Box>
   );
