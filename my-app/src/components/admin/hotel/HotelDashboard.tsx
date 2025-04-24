@@ -3,6 +3,7 @@
 import React from 'react';
 import { Container, Stack, Title, Divider } from '@mantine/core';
 import { CurrentlyAvailable } from '@/components/root/currentlyAvailable/CurrentlyAvailable';
+import { NegotiationOverview } from '../negociations/negociationOverview';
 
 const HotelDashboard = () => {
   return (
@@ -12,6 +13,7 @@ const HotelDashboard = () => {
         <Divider label="Chambres disponibles" labelPosition="center" />
         <CurrentlyAvailable hideTitle />
         <Divider label="Négociations" labelPosition="center" />
+        <NegotiationOverview />
         <Divider label="Notifications" labelPosition="center" />
       </Stack>
     </Container>
