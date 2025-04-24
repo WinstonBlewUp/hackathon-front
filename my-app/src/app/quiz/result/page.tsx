@@ -5,7 +5,6 @@ export default function QuizResult() {
     return (
         <Stack>
             <Text tt="uppercase" ta="center" size="xl" fw="bold">C'est un Match !</Text>
-
             <CardRoomComponent info={{ price: 100, name: "Novotel" }} picture={placeholder.src} h="65vh" />
             <Button>Voir la chambre</Button>
             <Button variant="outline">Regénérer</Button>

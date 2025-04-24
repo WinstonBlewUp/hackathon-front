@@ -31,10 +31,6 @@ export default function Profile() {
                     <Text fw="bold" fz="h1" ta="center">30%</Text>
                     <Text ta="center">d'économie en moyenne</Text>
                 </Stack>
-                {/* <Stack align="center" maw={300}>
-                    <Text fw="bold" fz="h1" ta="center">100</Text>
-                    <Text ta="center">jours depuis que vous avez rejoins la communauté</Text>
-                </Stack> */}
                 <Stack align="center" maw={300}>
                     <Text fw="bold" fz="h1" ta="center">20</Text>
                     <Text ta="center">nuits passés dans nos hotels partenaires</Text>
@@ -54,7 +50,7 @@ export default function Profile() {
                     <Text mt="md">Négociations</Text>
                 </Paper>
             </SimpleGrid>
-            <Button onClick={() => signOut()} fullWidth color="black">Deconnexion</Button>
+            <Button onClick={() => signOut()} fullWidth>Deconnexion</Button>
         </>
     );
 }

@@ -9,9 +9,8 @@ import Link from 'next/link';
 
 export const CurrentlyAvailable = () => {
   return (
-    <Stack gap="xl">
-      <Title order={2}>Actuellement disponibles</Title>
-
+    <Stack gap="md">
+      <Title order={2}>Nos recommandations</Title>
       <GridLayout cols={{ base: 1, sm: 2, lg: 3 }}>
         {rooms.slice(0, 5).map((room, index) => (
           <Box component={Link} key={index} href={`/room/${room.id}`} sx={{
@@ -20,7 +19,7 @@ export const CurrentlyAvailable = () => {
             "&:hover": { transform: "scale(1.1)" },
             textDecoration: "none"
           }}  >
-            <CardRoomComponent price={room.price} name={room.hotelName} picture={placeholder.src} h={200} />
+            <CardRoomComponent info={{ price: room.price, name: room.hotelName }} picture={placeholder.src} h={200} />
           </Box>
         ))}
       </GridLayout>

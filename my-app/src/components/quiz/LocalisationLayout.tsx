@@ -17,26 +17,7 @@ export const LocalisationLayout = () => {
     ];
     return (
         <Stack gap="xl">
-            <Box>
-                <Title order={2} size="md" mb="md">Type de destination préférée</Title>
-                <Chip.Group>
-                    <Group >
-                        <Chip value="1">Centre ville</Chip>
-                        <Chip value="2">Ville - Quartier calme</Chip>
-                        <Chip value="3">Loins de tout</Chip>
-                    </Group>
-                </Chip.Group>
-            </Box>
-            <Box>
-                <Title order={2} size="md" mb="md">Quelle importance accordez-vous à la proximité des transports publics ?</Title>
-                <Slider step={25} defaultValue={50} marks={marksPublicTransport}
-                />
-            </Box>
-            <Box>
-                <Title order={2} size="md" mb="md">Préférez-vous être proche des attractions touristiques ou dans un endroit plus isolé ?</Title>
-                <Slider step={25} defaultValue={50} marks={marksAttraction}
-                />
-            </Box>
+
         </Stack>
 
     )
