@@ -47,13 +47,6 @@ export default function Home() {
           </Text>
         </Stack>
 
-        {/* <TextInput
-          placeholder="Rechercher une salle…"
-          value={search}
-          onChange={(e) => setSearch(e.currentTarget.value)}
-          rightSection={<IconSearch size={16} />}
-          leftSectionWidth={32}
-        /> */}
         <SearchBar />
 
         <FlashLayout
