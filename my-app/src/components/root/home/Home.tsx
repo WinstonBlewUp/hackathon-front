@@ -54,7 +54,7 @@ export default function Home() {
 
         <SearchBar />
 
-
+          <Box>
             <Text>Recherchez une chambre disponible aux dates et destinations de votre choix.</Text>
             <Text fw="bold" fz="xl">Négociez et Réservez.</Text>
           </Box>

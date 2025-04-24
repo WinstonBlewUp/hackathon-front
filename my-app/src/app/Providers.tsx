@@ -13,7 +13,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <RootStyleRegistry>
                 <MantineEmotionProvider>
                     <MantineProvider stylesTransform={emotionTransform}
-                        defaultColorScheme="dark"
+                        /* defaultColorScheme="dark" */
                         theme={{
                             fontFamily: 'Satoshi, sans-serif',
                             primaryColor: "dark",
