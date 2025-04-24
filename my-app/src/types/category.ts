@@ -12,3 +12,12 @@ export type Hotel = {
   name: string;
   // Ajoute d'autres propriétés pertinentes pour un hôtel
 };
+export type RoomData = {
+  id: number;
+  name: string;
+  description: string;
+  basePrice: number;
+  maxGuests: number;
+  users: string[];
+  hotel: string; // URL vers l'API, donc une string
+};

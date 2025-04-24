@@ -90,4 +90,14 @@ export const getTotalNights = async (user_id: number) => {
   }
 };
 
+export const getRoomLike = async (user_id: number) => {
+  try {
+    const response = await instance.get(`/like/${user_id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
 export default instance;
