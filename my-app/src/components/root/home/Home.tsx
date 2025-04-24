@@ -12,6 +12,7 @@ import {
 import rooms from '@/data/rooms.json';
 import { FlashLayout } from '@/components/root/FlashLayout';
 import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
+import { SearchBar } from '../searchbar/Searchbar';
 
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 
@@ -46,13 +47,14 @@ export default function Home() {
           </Text>
         </Stack>
 
-        <TextInput
+        {/* <TextInput
           placeholder="Rechercher une salle…"
           value={search}
           onChange={(e) => setSearch(e.currentTarget.value)}
           rightSection={<IconSearch size={16} />}
           leftSectionWidth={32}
-        />
+        /> */}
+        <SearchBar />
 
         <FlashLayout
           title='vente flash'
