@@ -18,6 +18,8 @@ import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 
 import { Flex } from '@mantine/core';
 import { CategoriesLayout } from '../CategoriesLayout';
+import { link } from 'fs';
+import Link from 'next/link';
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -53,13 +55,15 @@ export default function Home() {
           title='vente flash'
           direction='row'
           badge={
-            <Flex align="center" gap="xs">
-              <Text size="sm" fw={500}>
-                voir tout
-              </Text>
-              <IconArrowRight size={16} />
-            </Flex>
-          } />
+            <Link href="/results" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Flex align="center" gap="xs">
+                <Text size="sm" fw={500}>
+                  voir tout
+                </Text>
+                <IconArrowRight size={16} />
+              </Flex>
+            </Link>
+          } ></FlashLayout>
         <CategoriesLayout />
         <CurrentlyAvailable />
 

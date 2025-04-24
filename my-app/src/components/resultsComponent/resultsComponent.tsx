@@ -4,6 +4,7 @@ import { Box, Title } from '@mantine/core';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { CurrentlyAvailable } from '@/components/root/currentlyAvailable/CurrentlyAvailable';
 import rooms from '@/data/rooms.json';
+import { useMediaQuery } from '@mantine/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -19,6 +20,7 @@ interface ResultsComponentProps {
 }
 
 export const ResultsComponent = ({ query }: ResultsComponentProps) => {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const availableRooms = rooms.filter((room) => room.status === 'free');
   const filteredRooms = query
     ? availableRooms.filter((r) =>
@@ -30,15 +32,36 @@ export const ResultsComponent = ({ query }: ResultsComponentProps) => {
   const defaultPosition: [number, number] = [43.2965, 5.3698];
 
   return (
-    <Box style={{ display: 'flex', height: '100vh' }}>
-      <Box w="50%" p="lg" style={{ overflowY: 'scroll', borderRight: '1px solid #eee' }}>
+    <Box
+      style={{
+        display: 'flex',
+        flexDirection: isDesktop ? 'row' : 'column',
+        height: isDesktop ? '100vh' : 'auto',
+      }}
+    >
+      <Box
+        style={{
+          width: isDesktop ? '50%' : '100%',
+          height: isDesktop ? '100vh' : 'auto',
+          overflowY: isDesktop ? 'scroll' : 'visible',
+          borderRight: isDesktop ? '1px solid #eee' : 'none',
+          padding: '1.5rem',
+        }}
+      >
         <Title order={2} mb="md">
           {query ? `Résultats pour "${query}"` : 'Chambres disponibles'}
         </Title>
         <CurrentlyAvailable rooms={filteredRooms} hideTitle />
       </Box>
 
-      <Box w="50%" style={{ position: 'sticky', top: 0, height: '100vh' }}>
+      <Box
+        style={{
+          width: isDesktop ? '50%' : '100%',
+          height: isDesktop ? '100vh' : '300px',
+          position: isDesktop ? 'sticky' : 'relative',
+          top: 0,
+        }}
+      >
         <MapContainer
           center={defaultPosition}
           zoom={12}
