@@ -40,8 +40,10 @@ export const CurrentlyAvailable = ({ rooms, hideTitle = false }: CurrentlyAvaila
             }}
           >
             <CardRoomComponent
-              price={room.price}
-              name={room.hotelName}
+              info={{
+                price: room.price,
+                name: room.hotelName
+              }}
               picture={room.image || '/placeholder.png'}
               h={200}
             />

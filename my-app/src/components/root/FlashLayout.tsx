@@ -18,6 +18,7 @@ import { IconBolt } from '@tabler/icons-react';
 import rooms from '@/data/rooms.json';
 import placeholder from '@/assets/image.png';
 import Link from 'next/link';
+import { getLastMinute } from '@/lib/axios';
 
 interface FlashLayoutProps {
   title?: string;
@@ -34,7 +35,6 @@ export const FlashLayout = ({
   maxItems = 5,
   direction = 'row',
 }: FlashLayoutProps) => {
-    console.log('direction', direction);
   return (
     <Stack component="article" gap="xl" w="100%" style={{ maxWidth: '100vw' }}>
       <Box px="xs" w="100%">

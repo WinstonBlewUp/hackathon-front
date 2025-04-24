@@ -1,9 +1,8 @@
 'use client';
 
-import { Button, Paper, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { Button, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
