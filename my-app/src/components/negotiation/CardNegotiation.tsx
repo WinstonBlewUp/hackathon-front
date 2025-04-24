@@ -1,5 +1,5 @@
 "use client";
-import { Alert, Box, Button, Card, CardSection, Flex, Grid, GridCol, Group, Loader, Progress, Stack, Text } from "@mantine/core"
+import { Alert, Box, Button, Card, CardSection, Flex, Grid, GridCol, Group, Loader, Progress, Stack, Text, Title } from "@mantine/core"
 import { CardRoomComponent, CardRoomComponentProps } from "../CardRoomComponent"
 import placeholder from "../../assets/image.png"
 import { useEffect, useState } from "react";
@@ -80,7 +80,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
             />
             <Stack gap="sm" w="100%">
                 <Box>
-                    <Text fw={700} size="xl">{info?.name}</Text>
+                    <Title order={2} fw={700} size="xl">{info?.name}</Title>
                     <Text size="sm" c="dimmed">
                         {description}
                     </Text>
@@ -141,7 +141,6 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                     <Stack gap="xs">
                         <Button
                             leftSection={<IconCalendar size={18} />}
-                            color="black"
                             fullWidth
                             onClick={handleReservation}
                         >

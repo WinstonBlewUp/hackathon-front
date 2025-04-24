@@ -25,37 +25,45 @@ export default function Home() {
   );
 
   return (
-    <Box w="100%" py="xl">
+    <Box w="100%">
       <Stack gap="xl">
-        <Stack gap="xs">
-          <Title
-            order={1}
-            fz="90px"
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              lineHeight: 0.7,
-              gap: 0,
-            }}
-          >
-            <span style={{ whiteSpace: 'nowrap' }}>Match</span>
-            <span style={{ whiteSpace: 'nowrap' }}>room</span>
-          </Title>
-          <Text size="lg" color="dimmed">
-            Matchez avec votre Hôtel
-          </Text>
+        <Stack pos='relative' py={75} c="white" gap="xl">
+          <Box w="150%" bg="black" h="100%" pos='absolute' left='-30%' top="0" c="white" sx={{ zIndex: -1 }} />
+
+          <Stack gap="xs">
+            <Title
+              order={1}
+              fz="90px"
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                lineHeight: 0.7,
+                gap: 0,
+              }}
+            >
+              <span style={{ whiteSpace: 'nowrap' }}>Match</span>
+              <span style={{ whiteSpace: 'nowrap' }}>room</span>
+            </Title>
+            <Text size="lg" color="dimmed">
+              Matchez avec votre Hôtel
+            </Text>
+          </Stack>
+
+          <TextInput
+            placeholder="Rechercher une salle…"
+            value={search}
+            onChange={(e) => setSearch(e.currentTarget.value)}
+            rightSection={<IconSearch size={16} />}
+            leftSectionWidth={32}
+          />
+          <Box>
+
+            <Text>Recherchez une chambre disponible aux dates et destinations de votre choix.</Text>
+            <Text fw="bold" fz="xl">Négociez et Réservez.</Text>
+          </Box>
         </Stack>
-
-        <TextInput
-          placeholder="Rechercher une salle…"
-          value={search}
-          onChange={(e) => setSearch(e.currentTarget.value)}
-          rightSection={<IconSearch size={16} />}
-          leftSectionWidth={32}
-        />
-
         <FlashLayout
-          title='vente flash'
+          title='Last minute'
           direction='row'
           badge={
             <Flex align="center" gap="xs">

@@ -22,13 +22,13 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body suppressHydrationWarning style={{ minHeight: '100vh' }}>
+      <body suppressHydrationWarning style={{ minHeight: '100vh', width: "100vw", overflowX: "hidden" }}>
         <Providers>
           <header>
             <HeaderComponent />
           </header>
-          <Space h={50} />
-          <Box px={{ base: 20, lg: 50 }} py="md">
+          <Space h={60} />
+          <Box px={{ base: 20, md: 40, lg: 50 }}  >
             <main>
               <Stack gap={100}>
                 {children}

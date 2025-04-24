@@ -10,11 +10,9 @@ type Props = {
     };
 };
 export default function Room({ params }: Props) {
-    console.log(params.id)
     const room = rooms[Number(params.id) - 1]
-    console.log(room)
     return (
-        <Box>
+        <Box mt="xl">
             <Carousel
                 withIndicators
                 height={500}
@@ -43,7 +41,7 @@ export default function Room({ params }: Props) {
             <Paper shadow='md' sx={{ borderTopLeftRadius: 'var(--mantine-radius-xl)', borderTopRightRadius: 'var(--mantine-radius-xl)', position: "relative" }} p="xl" mt={-10} >
                 <Flex justify="space-between" align="start" gap="md" >
                     <Group gap={0}>
-                        <Title fw="bold" size="lg" order={1}>
+                        <Title fw="bold" size="xl" order={2}>
                             {room.roomName} -
                         </Title>
                         <Text>{" "}{room.hotelName}</Text>
@@ -59,28 +57,28 @@ export default function Room({ params }: Props) {
                     <IconArrowRight size={16} />
                 </Flex>
                 <Box mt="md">
-                    <Title order={2}>Les + de la chambre</Title>
-                    <Flex p="lg" gap="xl">
-                        <Stack justify="center" gap={5}>
+                    <Text fw="bold" fz="lg">Les + de la chambre</Text>
+                    <Group p="lg" gap="xl" justify="center">
+                        <Stack justify="center" gap={5} mx="md">
                             <IconTestPipe />
                             Test
                         </Stack>
-                        <Stack justify="center" gap={5}>
+                        <Stack justify="center" gap={5} mx="md">
                             <IconTestPipe />
                             Test
                         </Stack>
-                        <Stack justify="center" gap={5}>
+                        <Stack justify="center" gap={5} mx="md">
                             <IconTestPipe />
                             Test
                         </Stack>
-                        <Stack justify="center" gap={5}>
+                        <Stack justify="center" gap={5} mx="md">
                             <IconTestPipe />
                             Test
                         </Stack>
-                    </Flex>
+                    </Group>
                 </Box>
                 <Center>
-                    <Button mx="auto" color='black'>Faire une proposition !</Button>
+                    <Button mx="auto">Faire une proposition !</Button>
                 </Center>
             </Paper>
         </Box>

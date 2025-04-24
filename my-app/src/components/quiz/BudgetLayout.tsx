@@ -1,6 +1,7 @@
 "use client"
 
-import { Checkbox, Group, NumberInput, Stack } from '@mantine/core';
+import { Chip, Text } from '@mantine/core';
+import { Box, Checkbox, Group, NumberInput, Stack } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar, IconUser } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -33,7 +34,16 @@ export const BudgetLayout = () => {
                     <Checkbox value="animal" label="Voyage avec des animaux" />
                 </Group>
             </Checkbox.Group>
-
+            <Box>
+                <Text>Type de destination préférée</Text>
+                <Chip.Group>
+                    <Group >
+                        <Chip value="1">Centre ville</Chip>
+                        <Chip value="2">Ville - Quartier calme</Chip>
+                        <Chip value="3">Loins de tout</Chip>
+                    </Group>
+                </Chip.Group>
+            </Box>
         </Stack>
 
     )
