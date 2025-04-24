@@ -47,5 +47,5 @@ export function RootStyleRegistry({
         );
     });
 
-    return <CacheProvider value={cache}>{children}</CacheProvider>;
+    return <CacheProvider value={cache} >{children}</CacheProvider>;
 }

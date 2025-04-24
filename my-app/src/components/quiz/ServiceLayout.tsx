@@ -63,7 +63,7 @@ export const ServiceLayout = () => {
     ]; return (
         <Stack gap="xl">
             <Box>
-                <Title order={2} size="md" mb="md">Quel type de restauration recherchez-vous ?</Title>
+                <Text>Quel type de restauration recherchez-vous ?</Text>
                 <Chip.Group multiple>
                     <Group >
                         {["Restaurant gastronomique", "Pension complète", "Petit déjeuner"].map((item, index) =>
@@ -73,7 +73,7 @@ export const ServiceLayout = () => {
                 </Chip.Group>
             </Box>
             <Box>
-                <Title order={2} size="md" mb="md">Quelles installations considérez-vous comme essentielles ?</Title>
+                <Text>Quelles installations considérez-vous comme essentielles ?</Text>
                 <Accordion>
                     {hotelAmenities.map((amenitie, index) =>
                         <Accordion.Item value={amenitie.label} key={index}>
