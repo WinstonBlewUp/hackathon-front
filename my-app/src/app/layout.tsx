@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/carousel/styles.css';
-import { Box, ColorSchemeScript, mantineHtmlProps, MantineProvider, Space, Stack } from "@mantine/core";
-import { RootStyleRegistry } from "./EmotionRootStyleRegistry";
-import { emotionTransform, MantineEmotionProvider } from "@mantine/emotion";
-import { HeaderComponent } from "@/components/HeaderComponent";
+import { Box, ColorSchemeScript, mantineHtmlProps, Space, Stack } from "@mantine/core";
+import { HeaderComponent } from "@/components/header/HeaderComponent";
+import { Providers } from "./Providers";
 
 
 export const metadata: Metadata = {
@@ -23,24 +22,20 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body suppressHydrationWarning>
-        <RootStyleRegistry>
-          <MantineEmotionProvider >
-            <MantineProvider stylesTransform={emotionTransform} defaultColorScheme="dark">
-              <header>
-                <HeaderComponent />
-              </header>
-              <Space h={50} />
-              <Box px={{ base: 20, lg: 50 }} py="md">
-                <main>
-                  <Stack gap={100}>
-                    {children}
-                  </Stack>
-                </main>
-              </Box>
-            </MantineProvider>
-          </MantineEmotionProvider >
-        </RootStyleRegistry >
+      <body suppressHydrationWarning style={{ minHeight: '100vh' }}>
+        <Providers>
+          <header>
+            <HeaderComponent />
+          </header>
+          <Space h={50} />
+          <Box px={{ base: 20, lg: 50 }} py="md">
+            <main>
+              <Stack gap={100}>
+                {children}
+              </Stack>
+            </main>
+          </Box>
+        </Providers>
       </body >
     </html >
   );
