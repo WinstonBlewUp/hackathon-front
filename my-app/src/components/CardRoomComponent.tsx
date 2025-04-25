@@ -7,7 +7,7 @@ import Link from "next/link"
 
 
 export type CardRoomComponentProps = RoomData & Omit<BackgroundImageProps, 'src'>
-export const CardRoomComponent = ({ hotelName, roomBasePrice, roomId, roomUsers, roomMaxGuests, ...props }: CardRoomComponentProps) => {
+export const CardRoomComponent = ({ hotelName, roomBasePrice, roomDescription, roomName, hotelId, roomId, roomUsers, roomMaxGuests, ...props }: CardRoomComponentProps) => {
     const { data: session } = useSession();
     let isLike = false
     if (session && roomUsers) {

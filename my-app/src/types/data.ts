@@ -40,3 +40,23 @@ export type QuizRequestData = {
     category: string | null; // id ou nom de catégorie
   };
 };
+
+// export enum NegotiationStatus {
+//   PENDING_HOTELIER = "pendingHotelier",
+//   PENDING_CLIENT = "pendingClient",
+//   ACCEPTED_HOTELIER = "acceptedHotelier",
+//   REFUSED_HOTELIER = "refusedHotelier",
+//   REFUSED_CLIENT = "refusedClient",
+//   REFUSED_NO_DISP = "refusedNoDisp",
+// }
+export type NegotiationData = {
+  id: number;
+  requestedPrice: number;
+  status: string; // tu peux ajuster selon tes enums réels
+  createdAt: string; // ISO 8601 date string
+  responseAt: string; // ISO 8601 date string
+  challengePrice: number | null;
+  isClose: boolean;
+  user: string; // URI type, e.g., "/api/users/2"
+  room: RoomData; // URI type, e.g., "/api/rooms/96"
+};

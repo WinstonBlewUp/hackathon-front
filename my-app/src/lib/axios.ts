@@ -119,4 +119,15 @@ export const postQuiz = async (data: QuizRequestData) => {
   }
 };
 
+export const getOpenNegotiations = async (user_id: string) => {
+  try {
+    const response = await instance.get(`/negotiation/open/${user_id}`);
+    console.log(response);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
 export default instance;
