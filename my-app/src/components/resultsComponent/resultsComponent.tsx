@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Title } from '@mantine/core';
+import { Box, Flex, Paper, Title } from '@mantine/core';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { CurrentlyAvailable } from '@/components/currentlyAvailable/CurrentlyAvailable';
 import rooms from '@/data/rooms.json';
@@ -32,21 +32,20 @@ export const ResultsComponent = ({ query }: ResultsComponentProps) => {
   const defaultPosition: [number, number] = [43.2965, 5.3698];
 
   return (
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: isDesktop ? 'row' : 'column',
-        height: isDesktop ? '100vh' : 'auto',
+    <Flex
+      h='100%'
+      direction={{
+        base: 'column', lg: "row"
       }}
+      mt="xl"
+      gap="xl"
     >
       <Box
+        w={{ base: "100%", lg: "50%" }}
         style={{
-          width: isDesktop ? '50%' : '100%',
-          height: isDesktop ? '100vh' : 'auto',
           overflowY: isDesktop ? 'scroll' : 'visible',
-          borderRight: isDesktop ? '1px solid #eee' : 'none',
-          padding: '1.5rem',
         }}
+        h="100%"
       >
         <Title order={2} mb="md">
           {query ? `Résultats pour "${query}"` : 'Chambres disponibles'}
@@ -54,13 +53,13 @@ export const ResultsComponent = ({ query }: ResultsComponentProps) => {
         <CurrentlyAvailable rooms={filteredRooms} hideTitle />
       </Box>
 
-      <Box
-        style={{
-          width: isDesktop ? '50%' : '100%',
-          height: isDesktop ? '100vh' : '300px',
-          position: isDesktop ? 'sticky' : 'relative',
-          top: 0,
-        }}
+      <Paper
+        h={{ lg: "80vh", base: "40vh" }}
+        my="auto"
+        w={{ base: "100%", lg: "50%" }}
+        shadow="md"
+        radius="md"
+        sx={{ overflow: "hidden" }}
       >
         <MapContainer
           center={defaultPosition}
@@ -81,7 +80,7 @@ export const ResultsComponent = ({ query }: ResultsComponentProps) => {
             </Marker>
           ))}
         </MapContainer>
-      </Box>
-    </Box>
+      </Paper>
+    </Flex>
   );
 };

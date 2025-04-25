@@ -3,7 +3,7 @@
 import { Title, Stack } from '@mantine/core';
 import { GridLayout } from '@/components/root/grid/Grid';
 import { CardRoomComponent } from '@/components/CardRoomComponent';
-import { RoomData } from '@/types/category';
+import { RoomData } from '@/types/data';
 
 
 interface CurrentlyAvailableProps {

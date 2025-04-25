@@ -6,12 +6,11 @@ import placeholder from "../../assets/image.png"
 import { IconArrowRight, IconTestPipe } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { RoomData } from '@/types/category';
+import { RoomData } from '@/types/data';
 import { getRoom } from '@/lib/axios';
 
 export const RoomLayout = ({ id }: { id: string }) => {
     const { data: session } = useSession();
-
     const [data, setData] = useState<RoomData>();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);

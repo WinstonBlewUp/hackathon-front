@@ -20,7 +20,7 @@ instance.interceptors.request.use(config => {
 export default instance;
  */
 
-import { Category } from "@/types/category";
+import { CategoryData, QuizRequestData } from "@/types/data";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
@@ -49,7 +49,7 @@ type ApiResponse<T> = {
   data: T;
   error?: string;
 };
-export const getCategories = async (): Promise<ApiResponse<Category[]>> => {
+export const getCategories = async (): Promise<ApiResponse<CategoryData[]>> => {
   try {
     const response = await instance.get("/categories");
     return { success: true, data: response.data.member };
@@ -101,6 +101,17 @@ export const getRoomLike = async (user_id: string) => {
 export const getRoom = async (room_id: string) => {
   try {
     const response = await instance.get(`/rooms/${room_id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
+export const postQuiz = async (data: QuizRequestData) => {
+  try {
+    const response = await instance.post(`/rooms/search/quiz`, data);
+    console.log(response);
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories", error);

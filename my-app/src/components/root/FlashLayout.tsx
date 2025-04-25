@@ -18,7 +18,6 @@ import { IconBolt } from '@tabler/icons-react';
 import rooms from '@/data/rooms.json';
 import placeholder from '@/assets/image.png';
 import Link from 'next/link';
-import { getLastMinute } from '@/lib/axios';
 
 interface FlashLayoutProps {
   title?: string;

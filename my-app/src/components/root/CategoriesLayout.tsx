@@ -1,9 +1,9 @@
 import { Box, Center, SimpleGrid, Text, Title } from "@mantine/core";
 import { getCategories } from "@/lib/axios";
-import { Category } from "@/types/category";
+import { CategoryData } from "@/types/data";
 import { useEffect, useState } from "react";
 export const CategoriesLayout = () => {
-    const [categories, setCategories] = useState<Category[]>([]);
+    const [categories, setCategories] = useState<CategoryData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     useEffect(() => {

@@ -3,7 +3,7 @@ import { SimpleGrid, Text } from "@mantine/core";
 import { CardRoomComponent } from "@/components/CardRoomComponent";
 import { useEffect, useState } from "react";
 import { getRoomLike } from "@/lib/axios";
-import { RoomData } from "@/types/category";
+import { RoomData } from "@/types/data";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 export const AllLike = () => {
@@ -43,7 +43,7 @@ export const AllLike = () => {
         <>
             <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="xl">
                 {data.slice(0, 5).map((room, index) =>
-                    <CardRoomComponent key={index}  {...room} />
+                    <CardRoomComponent key={index}  {...room} h={400} />
                 )}
             </SimpleGrid>
 

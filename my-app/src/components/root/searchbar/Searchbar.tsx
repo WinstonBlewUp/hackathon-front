@@ -46,7 +46,9 @@ export const SearchBar = () => {
           value={query}
           onChange={(e) => setQuery(e.currentTarget.value)}
           leftSection={<IconSearch size={16} />}
+          styles={{ input: { color: "white" } }}
           w="100%"
+          c="white"
           suppressHydrationWarning
         />
         <DatePickerInput
@@ -62,8 +64,8 @@ export const SearchBar = () => {
       </Flex>
       <Button
         onClick={handleSearch}
-        color={isMobile ? "dark" : 'white'}
-        c={isMobile ? "white" : "dark"}
+        color={isMobile ? "dark" : 'gray.1'}
+        c={isMobile ? "gray.1" : "dark"}
         miw={isMobile ? "100%" : 125}
       >
         Rechercher
