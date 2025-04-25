@@ -69,10 +69,10 @@ export const RoomMatchCard = ({ room, onLike, onDislike, onNegotiate }: RoomMatc
         </div>
 
         <Flex justify="center" gap="md" mt="sm">
-          <Button variant="outline" size="lg" color="gray" onClick={onDislike}>
+          <Button variant="outline" size="lg" color="gray" onClick={onDislike} w="calc(50% - 0.5rem)">
           <img src="/dislike.svg" alt="Like" width={24} height={24} />
           </Button>
-          <Button variant="outline" size="lg" color="gray" onClick={onLike}>
+          <Button variant="outline" size="lg" color="gray" onClick={onLike} w="calc(50% - 0.5rem)">
           <img src="/like.svg" alt="Like" width={24} height={24} />
           </Button>
         </Flex>
@@ -134,10 +134,10 @@ export const RoomMatchCard = ({ room, onLike, onDislike, onNegotiate }: RoomMatc
 
             <Stack mt="md" gap="xs">
                 <Flex justify="center" gap="md">
-                <Button variant="outline" size="lg" color="gray" onClick={onDislike}>
+                <Button variant="outline" size="lg" color="gray" onClick={onDislike} w="calc(50% - 0.5rem)">
                 <img src="/dislike.svg" alt="Dislike" width={24} height={24} />
                 </Button>
-                <Button variant="outline" size="lg" color="gray" onClick={onLike}>
+                <Button variant="outline" size="lg" color="gray" onClick={onLike} w="calc(50% - 0.5rem)">
                 <img src="/like.svg" alt="Like" width={24} height={24} />
                 </Button>
                 </Flex>
