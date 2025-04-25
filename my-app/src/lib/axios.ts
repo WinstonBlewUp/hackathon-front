@@ -27,7 +27,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:80/api",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/ld+json",
   },
 });
 
@@ -110,6 +110,7 @@ export const getRoom = async (room_id: string) => {
 
 export const postQuiz = async (data: QuizRequestData) => {
   try {
+    console.log(data);
     const response = await instance.post(`/rooms/search/quiz`, data);
     console.log(response);
     return { success: true, data: response.data };

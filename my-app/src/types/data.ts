@@ -22,8 +22,8 @@ export type RoomData = {
 };
 
 export type QuizRequestData = {
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: string | null;
+  endDate: string | null;
   maxGuests: number;
   criteriaHotel: {
     children: boolean;

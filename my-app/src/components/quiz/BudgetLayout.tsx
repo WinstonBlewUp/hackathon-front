@@ -3,7 +3,7 @@
 import { QuizRequestData } from '@/types/data';
 import { Chip, Text } from '@mantine/core';
 import { Box, Checkbox, Group, NumberInput, Stack } from '@mantine/core';
-import { DatePickerInput } from '@mantine/dates';
+import { DatePickerInput, DateValue } from '@mantine/dates';
 import { IconCalendar, IconUser } from '@tabler/icons-react';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoriesQuizComponent } from './CategoriesComponent';
@@ -19,7 +19,9 @@ export const BudgetLayout = ({ data, setData }: { setData: Dispatch<SetStateActi
             },
         }));
     };
-
+    const toIso = (date: DateValue) => {
+        return date ? date.toISOString().split('.')[0] : null
+    }
     return (
         <Stack>
             <DatePickerInput
@@ -28,8 +30,10 @@ export const BudgetLayout = ({ data, setData }: { setData: Dispatch<SetStateActi
                 label="Pick dates range"
                 placeholder="Pick dates range"
                 withAsterisk
-                value={[data?.startDate, data?.endDate]}
-                onChange={(value) => setData((prev) => ({ ...prev, startDate: value[0], endDate: value[1] }))}
+                value={[
+                    data?.startDate ? new Date(data.startDate) : null,
+                    data?.endDate ? new Date(data.endDate) : null,]}
+                onChange={(value) => setData((prev) => ({ ...prev, startDate: toIso(value[0]), endDate: toIso(value[1]) }))}
                 clearable
             />
             <NumberInput
