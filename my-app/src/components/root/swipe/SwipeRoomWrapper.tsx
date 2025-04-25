@@ -16,7 +16,7 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
-  const [requestData, setRequestData] = useState<PostNegotiationData>({ user_id: Number(sessions?.user.id) ?? 0, room_id: null, startDate: null, endDate: null, price: 0 })
+  const [requestData, setRequestData] = useState<PostNegotiationData>({ user_id: 0, room_id: null, startDate: null, endDate: null, price: 0 })
 
   const bind = useDrag(
     ({ down, movement: [mx, my], direction: [dx, dy], velocity, cancel }) => {
@@ -69,7 +69,14 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
 
     fetchCategories();
   }, [id]);
-
+  useEffect(() => {
+    if (sessions?.user?.id) {
+      setRequestData(prev => ({
+        ...prev,
+        user_id: Number(sessions.user.id),
+      }));
+    }
+  }, [sessions]);
   if (error) {
     return <Text c="red">Erreur: {error}</Text>;
   }
@@ -82,7 +89,7 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
 
 
   const goToNext = () => {
-    setIndex((prev) => (prev + 1 < rooms.length ? prev + 1 : 0));
+    setIndex((prev) => (prev + 1 < data.length ? prev + 1 : 0));
   };
 
   const handleLike = () => {
@@ -96,25 +103,38 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
   };
 
   const handleNegotiate = async () => {
+    if (!room || !requestData || requestData.user_id === 0) return;
+
     try {
-      await postNegotiation({ price: requestData.price, room_id: room.roomId, user_id: requestData.user_id, startDate: requestData.startDate, endDate: requestData.endDate })
+      await postNegotiation({
+        price: requestData.price,
+        room_id: room.roomId,
+        user_id: requestData.user_id,
+        startDate: requestData.startDate,
+        endDate: requestData.endDate
+      });
+
     } catch (error) {
       console.error("Erreur lors du refus de l'offre :", error);
-
     }
+    goToNext()
   };
+  if (index >= data.length) {
+    return <Text>Plus de chambres disponibles.</Text>;
+  }
 
 
+  if (!room) return <Text>Aucune chambre à afficher.</Text>;
 
   return (
     <RoomMatchCard
       onLike={handleLike}
       onDislike={handleDislike}
       onNegotiate={handleNegotiate}
-      swipeProps={{ bind, animatedProps: { x, y, scale, rot } }}
       room={room}
       setRequestData={setRequestData}
       requestData={requestData}
+      swipeProps={{ bind, animatedProps: { x, y, scale, rot } }}
     />
   );
 };

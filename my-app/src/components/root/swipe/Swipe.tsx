@@ -7,7 +7,8 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useDrag } from '@use-gesture/react';
 import placeholder from '@/assets/image.png';
 import { PostNegotiationData, RoomData } from '@/types/data';
-import { DatePickerInput } from '@mantine/dates';
+import { DatePickerInput, DateValue } from '@mantine/dates';
+import { toIso } from '@/components/utils';
 
 
 interface RoomMatchCardProps {
@@ -15,11 +16,11 @@ interface RoomMatchCardProps {
   onDislike?: () => void;
   onNegotiate?: () => void;
   room: RoomData
-  setRequestData: Dispatch<SetStateAction<PostNegotiationData | undefined>>
-  request: number
+  setRequestData: Dispatch<SetStateAction<PostNegotiationData>>
+  requestData: PostNegotiationData
 }
 
-export const RoomMatchCard = ({ request, setRequestData, onLike, onDislike, onNegotiate, room }: RoomMatchCardProps) => {
+export const RoomMatchCard = ({ requestData, setRequestData, onLike, onDislike, onNegotiate, room }: RoomMatchCardProps) => {
 
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -81,7 +82,24 @@ export const RoomMatchCard = ({ request, setRequestData, onLike, onDislike, onNe
           </Button>
         </Flex>
 
-        <Button size="md" fullWidth color="dark" onClick={onNegotiate}>Négocier</Button>
+        <Stack>
+          <DatePickerInput
+            leftSection={<IconCalendar size={18} stroke={1.5} />}
+            type="range"
+            label="Pick dates range"
+            placeholder="Pick dates range"
+            withAsterisk
+            value={[
+              requestData?.startDate ? new Date(requestData.startDate) : null,
+              requestData?.endDate ? new Date(requestData.endDate) : null,]}
+            onChange={(value) => setRequestData((prev) => ({
+              ...prev, startDate: toIso(value[0]), endDate: toIso(value[1])
+            }))}
+            clearable
+          />
+          <NumberInput value={requestData.price} onChange={(value) => setRequestData((prev) => ({ ...prev, price: Number(value) ?? 0 }))} />
+          <Button size="md" color="dark" onClick={onNegotiate}>Négocier</Button>
+        </Stack>
       </Stack>
 
     </>
@@ -156,11 +174,15 @@ export const RoomMatchCard = ({ request, setRequestData, onLike, onDislike, onNe
                   label="Pick dates range"
                   placeholder="Pick dates range"
                   withAsterisk
-                  value={[request.startDate, request?.endDate]}
-                  onChange={(value) => setRequestData((prev) => ({ ...prev, startDate: value[0], endDate: value[1] }))}
+                  value={[
+                    requestData?.startDate ? new Date(requestData.startDate) : null,
+                    requestData?.endDate ? new Date(requestData.endDate) : null,]}
+                  onChange={(value) => setRequestData((prev) => ({
+                    ...prev, startDate: toIso(value[0]), endDate: toIso(value[1])
+                  }))}
                   clearable
                 />
-                <NumberInput value={request} onChange={(value) => setRequestData(value.current.target)} />
+                <NumberInput value={requestData.price} onChange={(value) => setRequestData((prev) => ({ ...prev, price: Number(value) ?? 0 }))} />
                 <Button size="md" color="dark" onClick={onNegotiate}>Négocier</Button>
               </Stack>
             </Stack>

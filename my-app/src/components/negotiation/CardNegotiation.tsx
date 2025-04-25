@@ -18,7 +18,6 @@ const SECONDS = {
     DAY: 86400,
 };
 export const CardNegotiation = ({ room, negociationId, status, requestedPrice, createdAt, responseAt, challengePrice }: NegotiationData) => {
-    console.log(status, room.hotelName, room.roomBasePrice)
 
     const createdAtDate = new Date(createdAt);
     const responseAtDate = new Date(responseAt);
@@ -43,6 +42,7 @@ export const CardNegotiation = ({ room, negociationId, status, requestedPrice, c
                 isClose: true,
                 negociationId,
             });
+
             // tu peux déclencher une notif ou autre ici
         } catch (error) {
             console.error("Erreur lors du refus de l'offre :", error);

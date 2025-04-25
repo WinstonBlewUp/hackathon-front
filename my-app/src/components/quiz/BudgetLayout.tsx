@@ -7,6 +7,7 @@ import { DatePickerInput, DateValue } from '@mantine/dates';
 import { IconCalendar, IconUser } from '@tabler/icons-react';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoriesQuizComponent } from './CategoriesComponent';
+import { toIso } from '../utils';
 
 export const BudgetLayout = ({ data, setData }: { setData: Dispatch<SetStateAction<QuizRequestData>>, data: QuizRequestData }) => {
 
@@ -19,9 +20,7 @@ export const BudgetLayout = ({ data, setData }: { setData: Dispatch<SetStateActi
             },
         }));
     };
-    const toIso = (date: DateValue) => {
-        return date ? date.toISOString().split('.')[0] : null
-    }
+
     return (
         <Stack>
             <DatePickerInput

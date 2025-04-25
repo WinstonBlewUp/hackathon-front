@@ -3,17 +3,20 @@ import { Carousel, CarouselSlide } from '@mantine/carousel';
 
 import { Box, Button, Center, Flex, Group, Image, NumberInput, Paper, Stack, Text, Title, } from "@mantine/core";
 import placeholder from "../../assets/image.png"
-import { IconArrowRight, IconTestPipe } from '@tabler/icons-react';
+import { IconArrowRight, IconCalendar, IconTestPipe } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { RoomData } from '@/types/data';
-import { getRoom } from '@/lib/axios';
+import { PostNegotiationData, RoomData } from '@/types/data';
+import { getRoom, postNegotiation } from '@/lib/axios';
+import { DatePickerInput } from '@mantine/dates';
+import { toIso } from '../utils';
 
 export const RoomLayout = ({ id }: { id: string }) => {
     const { data: session } = useSession();
     const [data, setData] = useState<RoomData>();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [requestData, setRequestData] = useState<PostNegotiationData>({ user_id: 0, room_id: null, startDate: null, endDate: null, price: 0 })
 
     const [showNegotiation, setShowNegotiation] = useState(false);
     const [proposedPrice, setProposedPrice] = useState('');
@@ -37,13 +40,29 @@ export const RoomLayout = ({ id }: { id: string }) => {
 
         fetchCategories();
     }, []);
+
+    const handleNegotiate = async () => {
+        if (!data || !requestData || requestData.user_id === 0) return;
+
+        try {
+            await postNegotiation({
+                price: requestData.price,
+                room_id: data.roomId,
+                user_id: requestData.user_id,
+                startDate: requestData.startDate,
+                endDate: requestData.endDate
+            });
+
+        } catch (error) {
+            console.error("Erreur lors du refus de l'offre :", error);
+        }
+    };
     if (error) {
         return <Text c="red">Erreur: {error}</Text>;
     }
     if (loading) {
         return <Text>Chargement...</Text>;
     }
-    console.log(data)
     return (
         <Box mt="xl">
             <Carousel
@@ -112,7 +131,27 @@ export const RoomLayout = ({ id }: { id: string }) => {
                 </Box>
                 <Center mt="lg">
                     {!showNegotiation ? (
-                        <Button onClick={() => setShowNegotiation(true)}>Faire une proposition !</Button>
+                        <Stack gap="sm" w="100%" maw={400}>
+                            <DatePickerInput
+                                leftSection={<IconCalendar size={18} stroke={1.5} />}
+                                type="range"
+                                label="Pick dates range"
+                                placeholder="Pick dates range"
+                                withAsterisk
+                                value={[
+                                    requestData?.startDate ? new Date(requestData.startDate) : null,
+                                    requestData?.endDate ? new Date(requestData.endDate) : null,]}
+                                onChange={(value) => setRequestData((prev) => ({
+                                    ...prev, startDate: toIso(value[0]), endDate: toIso(value[1])
+                                }))}
+                                clearable
+                            />
+                            <NumberInput placeholder="Proposition de prix (€)"
+                                value={requestData.price} onChange={(value) => setRequestData((prev) => ({ ...prev, price: Number(value) ?? 0 }))} />
+                            <Button size="md" color="dark" onClick={handleNegotiate}>
+                                Négocier
+                            </Button>
+                        </Stack>
                     ) : (
                         <Stack gap="sm" w="100%" maw={400}>
                             <Text fz="sm">

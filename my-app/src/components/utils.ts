@@ -1,3 +1,5 @@
+import { DateValue } from "@mantine/dates";
+
 // Formater le temps restant en heures:minutes:secondes
 export const formatTime = (timeInSeconds: number) => {
   const hours = Math.floor(timeInSeconds / 3600);
@@ -28,4 +30,7 @@ export const formatDate = (date: Date) => {
     month: "short",
     year: "numeric",
   });
+};
+export const toIso = (date: DateValue) => {
+  return date ? date.toISOString().split(".")[0] : null;
 };
