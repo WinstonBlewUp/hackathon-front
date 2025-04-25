@@ -1,33 +1,22 @@
 // src/app/components/Home.tsx
-'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Stack,
   Title,
   Text,
-  TextInput,
   Box,
 } from '@mantine/core';
-import rooms from '@/data/rooms.json';
 import { FlashLayout } from '@/components/root/FlashLayout';
-import { CurrentlyAvailable } from '../currentlyAvailable/CurrentlyAvailable';
 import { SearchBar } from '../searchbar/Searchbar';
-
-import { IconArrowRight, IconSearch } from '@tabler/icons-react';
-
+import { IconArrowRight } from '@tabler/icons-react';
 import { Flex } from '@mantine/core';
 import { CategoriesLayout } from '../CategoriesLayout';
-import { link } from 'fs';
 import Link from 'next/link';
+import { Recommendation } from '../Recommendation';
 
 
 export default function Home() {
-  const [search, setSearch] = useState('');
-  const filtered = rooms.filter((r) =>
-    r.roomName.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
     <Box w="100%">
       <Stack gap="xl">
@@ -53,7 +42,7 @@ export default function Home() {
             </Text>
           </Stack>
 
-        <SearchBar />
+          <SearchBar />
 
           <Box>
             <Text>Recherchez une chambre disponible aux dates et destinations de votre choix.</Text>
@@ -74,8 +63,7 @@ export default function Home() {
             </Link>
           } ></FlashLayout>
         <CategoriesLayout />
-        <CurrentlyAvailable />
-
+        <Recommendation />
       </Stack>
     </Box>
   );

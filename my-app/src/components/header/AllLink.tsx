@@ -33,6 +33,9 @@ export const AllLink = () => {
                     Se connecter
                 </Button>
             }
+            {session?.user.role === "[ROLE_ADMIN]" && <Button variant='transparent' component={Link} href={"/admin"} sx={{ ["&:hover"]: { textDecoration: "underline" } }} c={page !== "admin" ? "var(--mantine-color-gray-2)" : "white"} >
+                Dashboard
+            </Button>}
 
         </>
     )

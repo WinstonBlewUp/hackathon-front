@@ -23,6 +23,8 @@
     "@stripe/stripe-js": "^7.2.0",
     "@tabler/icons-react": "^3.31.0",
     "@use-gesture/react": "^10.3.1",
+    "axios": "^1.8.4",
+    "axios-mock-adapter": "^2.1.0",
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^8.6.0",
     "leaflet": "^1.9.4",
