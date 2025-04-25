@@ -1,34 +1,11 @@
-/* import axios from 'axios';
-
-const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL, // Exemple : http://localhost:3001/api
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-});
-
-instance.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-
-export default instance;
- */
-
 import {
   CategoryData,
-  NegotiationData,
+  LoginData,
   PostNegotiationData,
   PostResponseNegotiationData,
   QuizRequestData,
 } from "@/types/data";
 import axios from "axios";
-import AxiosMockAdapter from "axios-mock-adapter";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:80/api",
@@ -36,19 +13,6 @@ const instance = axios.create({
     "Content-Type": "application/ld+json",
   },
 });
-
-/* if (process.env.NODE_ENV === 'development') {
-  const mock = new AxiosMockAdapter(instance);
-
-  mock.onGet('/test').reply(200, {
-    message: 'Mock OK 🚀',
-  });
-
-  mock.onGet('/rooms').reply(200, [
-    { id: 1, roomName: 'Chambre Parisienne' },
-    { id: 2, roomName: 'Studio Marseillais' },
-  ]);
-} */
 
 type ApiResponse<T> = {
   success: boolean;
@@ -214,4 +178,33 @@ export const postNegotiation = async ({
     return { success: false, data: [], error: "Erreur de connexion" };
   }
 };
+
+export const login = async ({ email, password }: LoginData) => {
+  try {
+    const response = await instance.get(`/login/${email}/${password}`);
+    console.log(response);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
+export const getCreateLike = async ({
+  user_id,
+  room_id,
+}: {
+  user_id: string;
+  room_id: number;
+}) => {
+  try {
+    const response = await instance.get(`/add/like/${user_id}/${room_id}`);
+    console.log(response);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
 export default instance;
