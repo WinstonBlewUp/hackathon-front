@@ -93,3 +93,8 @@ export type PostNegotiationData = {
   endDate: string | null;
   price: number;
 };
+
+export type LoginData = {
+  email: string;
+  password: string;
+};

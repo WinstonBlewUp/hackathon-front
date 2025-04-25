@@ -1,3 +1,4 @@
+import { login } from "@/lib/axios";
 import NextAuth from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -16,19 +17,33 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // // Remplace ceci avec ta logique d'auth avec le fecth
-        if (
-          credentials?.email === "admin@site.com" &&
-          credentials?.password === "admin"
-        ) {
-          return {
-            id: "1",
-            name: "Admin",
-            email: "admin@site.com",
-            role: "[ROLE_ADMIN]",
-          };
+        console.error("Tentative de connexion", credentials);
+
+        try {
+          console.log("Réponse du serveur:");
+
+          const response = await login({
+            email: credentials?.email ?? "",
+            password: credentials?.password ?? "",
+          });
+          console.log(response);
+          // Vérification de la réponse
+          if (response.success && response.data) {
+            return {
+              id: response.data.id,
+              email: response.data.email,
+              name: response.data.name,
+              role: Array.isArray(response.data.role)
+                ? response.data.role[0]
+                : response.data.role,
+            };
+          } else {
+            return null; // Retourne null en cas d'erreur
+          }
+        } catch (err) {
+          console.error("Erreur de connexion", err);
+          return null; // Retourne null en cas d'exception
         }
-        return null;
       },
     }),
   ],
