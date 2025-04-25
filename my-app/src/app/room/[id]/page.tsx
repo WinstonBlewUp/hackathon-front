@@ -39,7 +39,7 @@ export default function Room({ params }: Props) {
       >
         {[...Array(5)].map((_, i) => (
           <CarouselSlide key={i}>
-            <Image src={placeholder.src} radius="md" h="100%" style={{ filter: showNegotiation ? 'blur(4px)' : 'none', transition: 'filter 0.3s ease' }}/>
+            <Image src={placeholder.src} radius="md" h="100%" style={{ filter: showNegotiation ? 'blur(4px)' : 'none', transition: 'filter 0.3s ease' }} />
           </CarouselSlide>
         ))}
       </Carousel>
@@ -103,7 +103,7 @@ export default function Room({ params }: Props) {
                 value={proposedPrice}
                 onChange={(val) => setProposedPrice(val?.toString() || '')}
               />
-              <Button /* onClick={handleSubmit}  */component='a' href='/profile/negotiations'>Soumettre ma proposition</Button>
+              <Button /* onClick={handleSubmit}  */ component='a' href='/profile/negotiations'>Soumettre ma proposition</Button>
             </Stack>
           )}
         </Center>

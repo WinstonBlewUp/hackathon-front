@@ -1,41 +1,43 @@
 "use client";
 import { Alert, Box, Button, Card, CardSection, Flex, Grid, GridCol, Group, Loader, Progress, Stack, Text, Title } from "@mantine/core"
-import { CardRoomComponent, CardRoomComponentProps } from "../CardRoomComponent"
-import placeholder from "../../assets/image.png"
+import { CardRoomComponent } from "../CardRoomComponent"
 import { useEffect, useState } from "react";
 import { IconAlertCircle, IconBuildingSkyscraper, IconCalendar, IconClock, IconThumbDown, IconX } from "@tabler/icons-react";
 import { calculateDuration, formatDate, formatTime } from "./utils";
-
+import { NegotiationData } from "@/types/data";
 const STATUS = {
-    AVAILABLE: "available",
-    PENDING: "pending",
-    REJECTED_NOT_AVAILABLE: "rejected_not_available",
-    REJECTED_BY_HOTEL: "rejected_by_hotel"
+    PENDING_HOTELIER: 'pendingHotelier',
+    PENDING_CLIENT: 'pendingClient',
+    REFUSED_HOTELIER: 'refusedHotelier',
+    REFUSED_CLIENT: 'refusedClient',
+    REFUSED_NO_DISP: 'refusedNoDisp',
 };
+const SECONDS = {
+    HOUR: 3600,
+    DAY: 86400,
+};
+export const CardNegotiation = ({ room, status, createdAt, responseAt, challengePrice }: NegotiationData) => {
+    status = STATUS.PENDING_HOTELIER
+    console.log(status, room.hotelName, room.roomBasePrice)
 
-export const CardNegotiation = ({ picture, isLike, info, description }: CardRoomComponentProps & { description: string }) => {
-
-    const [status, setStatus] = useState(STATUS.AVAILABLE);
-
+    const createdAtDate = new Date(createdAt);
+    const responseAtDate = new Date(responseAt);
+    const now = new Date();
     // Temps restant pour l'offre en secondes 
-    const totalTime = 10800
-    const [timeLeft, setTimeLeft] = useState(totalTime);
+    const limitTime = status === STATUS.PENDING_HOTELIER
+        ? createdAtDate.getTime() + 3 * SECONDS.HOUR * 1000
+        : responseAtDate.getTime() + SECONDS.DAY * 1000;
+
+    const initialTimeLeft = Math.max(0, Math.floor((limitTime - now.getTime()) / 1000));
+    const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
 
     // Dates de réservation fixes
-    const checkInDate = new Date(2025, 4, 15); // 15 mai 2025
+    const checkInDate = new Date(2025, 4, 18); // 15 mai 2025
     const checkOutDate = new Date(2025, 4, 18); // 18 mai 2025
-
+    const isCounterOffer = status === STATUS.PENDING_CLIENT && challengePrice
     // Simulation du changement d'état pour la démo
     const handleReservation = () => {
-        setStatus(STATUS.PENDING);
-        // Pour la démo, on simule une réponse après 3 secondes
-        setTimeout(() => {
-            // Ici on pourrait ajouter un choix aléatoire entre les deux types de rejet
-            // ou basé sur d'autres conditions
-            setStatus(STATUS.REJECTED_NOT_AVAILABLE);
-            // Pour tester l'autre type de rejet, décommenter la ligne suivante et commenter celle au-dessus
-            // setStatus(STATUS.REJECTED_BY_HOTEL);
-        }, 3000);
+
     };
 
     // Décliner l'offre
@@ -45,15 +47,16 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
 
     // Comptes à rebours
     useEffect(() => {
-        if ((status === STATUS.AVAILABLE || status === STATUS.PENDING) && timeLeft > 0) {
+        if (timeLeft > 0) {
             const timer = setTimeout(() => {
-                setTimeLeft(timeLeft - 1);
+                setTimeLeft((prev) => prev - 1);
             }, 1000);
             return () => clearTimeout(timer);
         }
-    }, [timeLeft, status]);
+    }, [timeLeft]);
+    const totalTime = status === STATUS.PENDING_HOTELIER ? 3 * SECONDS.HOUR : SECONDS.DAY;
 
-    // Calcul du pourcentage de temps écoulé pour la barre de progression
+
     const calculateResponseProgress = () => {
         const elapsedTime = totalTime - timeLeft;
         return 100 - Math.round((elapsedTime / totalTime) * 100);
@@ -72,7 +75,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                 gap: 'var(--mantine-spacing-md)'
             })}
         >
-            <CardRoomComponent picture={placeholder.src}
+            <CardRoomComponent {...room}
                 h={{ base: 200, lg: "auto" }}
                 w={{ base: "100%", lg: 400 }}
                 style={{ flexShrink: 0 }}
@@ -80,9 +83,9 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
             />
             <Stack gap="sm" w="100%">
                 <Box>
-                    <Title order={2} fw={700} size="xl">{info?.name}</Title>
+                    <Title order={2} fw={700} size="xl">{room.roomName} </Title>
                     <Text size="sm" c="dimmed">
-                        {description}
+                        {room.roomDescription}
                     </Text>
                 </Box>
 
@@ -110,17 +113,17 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
 
                 <Flex justify="space-between" align="center" mt="xs">
                     <Text fw={700} size="lg">
-                        {info?.price}€ <Text component="span" size="sm" fw={400} c="dimmed">/ nuit</Text>
+                        {room.roomBasePrice}€ <Text component="span" size="sm" fw={400} c="dimmed">/ nuit</Text>
                     </Text>
 
-                    {status === STATUS.AVAILABLE && (
+                    {status === STATUS.PENDING_CLIENT && (
                         <Group gap="xs" c="green">
                             <IconClock size={16} />
                             <Text size="sm">Expire dans: {formatTime(timeLeft)}</Text>
                         </Group>
                     )}
 
-                    {status === STATUS.PENDING && (
+                    {status === STATUS.PENDING_HOTELIER && (
                         <Group gap="xs" c="blue">
                             <Loader size="xs" />
                             <Text size="sm">Réponse dans: {formatTime(timeLeft)}</Text>
@@ -128,7 +131,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                         </Group>
                     )}
 
-                    {(status === STATUS.REJECTED_NOT_AVAILABLE || status === STATUS.REJECTED_BY_HOTEL) && (
+                    {(status === STATUS.REFUSED_HOTELIER || status === STATUS.REFUSED_NO_DISP) && (
                         <Group gap="xs" c="red">
                             <IconX size={16} />
                             <Text size="sm">Indisponible</Text>
@@ -137,7 +140,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                 </Flex>
 
                 {/* État AVAILABLE */}
-                {status === STATUS.AVAILABLE && (
+                {status === STATUS.PENDING_CLIENT && (
                     <Stack gap="xs">
                         <Button
                             leftSection={<IconCalendar size={18} />}
@@ -158,7 +161,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                 )}
 
                 {/* État PENDING avec décompte */}
-                {status === STATUS.PENDING && (
+                {status === STATUS.PENDING_HOTELIER && (
                     <Button
                         disabled
                         fullWidth
@@ -168,7 +171,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                 )}
 
                 {/* État REJECTED_NOT_AVAILABLE */}
-                {status === STATUS.REJECTED_NOT_AVAILABLE && (
+                {status === STATUS.REFUSED_NO_DISP && (
                     <Stack gap="xs">
                         <Alert
                             icon={<IconAlertCircle size={16} />}
@@ -182,7 +185,7 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
                 )}
 
                 {/* État REJECTED_BY_HOTEL */}
-                {status === STATUS.REJECTED_BY_HOTEL && (
+                {status === STATUS.REFUSED_HOTELIER && (
                     <Stack gap="xs">
                         <Alert
                             icon={<IconBuildingSkyscraper size={16} />}
@@ -196,11 +199,11 @@ export const CardNegotiation = ({ picture, isLike, info, description }: CardRoom
 
                     </Stack>
                 )}
-                {(status === STATUS.PENDING || status === STATUS.AVAILABLE) && (
+                {(status === STATUS.PENDING_HOTELIER || status === STATUS.PENDING_CLIENT) && (
                     <Box>
                         <Progress
                             value={calculateResponseProgress()}
-                            color={status === STATUS.PENDING ? "blue" : "green"}
+                            color={status === STATUS.PENDING_HOTELIER ? "blue" : "green"}
                             h={10}
                             striped
                         />

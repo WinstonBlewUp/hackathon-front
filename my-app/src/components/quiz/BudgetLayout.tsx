@@ -1,13 +1,24 @@
 "use client"
 
+import { QuizRequestData } from '@/types/data';
 import { Chip, Text } from '@mantine/core';
 import { Box, Checkbox, Group, NumberInput, Stack } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar, IconUser } from '@tabler/icons-react';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { CategoriesQuizComponent } from './CategoriesComponent';
 
-export const BudgetLayout = () => {
-    const [date, setDate] = useState<[Date | null, Date | null]>([null, null]);
+export const BudgetLayout = ({ data, setData }: { setData: Dispatch<SetStateAction<QuizRequestData>>, data: QuizRequestData }) => {
+
+    const handleCheckboxChange = (value: string, checked: boolean) => {
+        setData((prev) => ({
+            ...prev,
+            criteriaHotel: {
+                ...prev.criteriaHotel,
+                [value]: checked,
+            },
+        }));
+    };
 
     return (
         <Stack>
@@ -17,32 +28,45 @@ export const BudgetLayout = () => {
                 label="Pick dates range"
                 placeholder="Pick dates range"
                 withAsterisk
-                value={date}
-                onChange={setDate}
-                excludeDate={(date) => date.getDate() === 4}
+                value={[data?.startDate, data?.endDate]}
+                onChange={(value) => setData((prev) => ({ ...prev, startDate: value[0], endDate: value[1] }))}
                 clearable
             />
-            <NumberInput label="Nombre de personne" placeholder="Input placeholder" withAsterisk
+            <NumberInput
+                label="Nombre de personne"
+                placeholder="Entrez un nombre"
+                withAsterisk
+                value={data?.maxGuests ?? 0}
+                onChange={(value) =>
+                    setData((prev) => ({ ...prev, maxGuests: Number(value) ?? 0 }))
+                }
                 leftSection={<IconUser size={18} stroke={1.5} />}
             />
 
-            <Checkbox.Group
-                label="Quelque information supplémentaire"
-            >
+
+            <Checkbox.Group label="Quelques informations supplémentaires">
                 <Group mt="xs">
-                    <Checkbox value="children" label="Voyage avec des enfants" />
-                    <Checkbox value="animal" label="Voyage avec des animaux" />
+                    <Checkbox
+                        value="children"
+                        label="Voyage avec des enfants"
+                        checked={!!data.criteriaHotel.children}
+                        onChange={(e) =>
+                            handleCheckboxChange('children', e.currentTarget.checked)
+                        }
+                    />
+                    <Checkbox
+                        value="animal"
+                        label="Voyage avec des animaux"
+                        checked={!!data.criteriaHotel.animal}
+                        onChange={(e) =>
+                            handleCheckboxChange('animal', e.currentTarget.checked)
+                        }
+                    />
                 </Group>
             </Checkbox.Group>
             <Box>
                 <Text>Type de destination préférée</Text>
-                <Chip.Group>
-                    <Group >
-                        <Chip value="1">Centre ville</Chip>
-                        <Chip value="2">Ville - Quartier calme</Chip>
-                        <Chip value="3">Loins de tout</Chip>
-                    </Group>
-                </Chip.Group>
+                <CategoriesQuizComponent setData={setData} data={data} />
             </Box>
         </Stack>
 

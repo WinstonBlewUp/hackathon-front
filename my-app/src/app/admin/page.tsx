@@ -1,4 +1,3 @@
-'use client';
 
 import HotelDashboard from '@/components/admin/hotel/HotelDashboard';
 
