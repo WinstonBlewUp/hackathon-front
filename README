@@ -4,14 +4,14 @@ Ce projet est une application web développée avec Next.js qui permet la mise e
 
 ## Prérequis
 
-- Node.js (version 14.x ou supérieure recommandée)
+- Node.js  
 - npm ou yarn
 
 ## Installation
 
 1. Clonez le dépôt :
 ```
-git clone [URL_DU_REPO]
+git clone https://github.com/WinstonBlewUp/hackathon-front
 cd my-app
 ```
 
@@ -37,15 +37,14 @@ L'application sera accessible à l'adresse [http://localhost:3000](http://localh
 ## Fonctionnalités
 
 - Système de matching entre clients et hôteliers
-- [Ajoutez ici les autres fonctionnalités principales]
-
+ 
 ## Structure du projet
 
 ```
 my-app/
 ├── components/
 │   ├── [Vos composants React]
-├── pages/
+├── app/
 │   ├── api/
 │   ├── [Vos pages Next.js]
 ├── public/
@@ -60,16 +59,4 @@ my-app/
 - React
 - React Spring (@react-spring/web) - Pour les animations
 - Use Gesture (@use-gesture/react) - Pour la gestion des interactions tactiles
-- [Autres technologies utilisées]
-
-## Déploiement
-
-[Instructions pour le déploiement de votre application]
-
-## Contribution
-
-[Instructions pour contribuer au projet]
-
-## Licence
-
-[Informations sur la licence]
+ 
