@@ -1,30 +1,33 @@
-'use client';
-
+/* import { notFound } from 'next/navigation';
 import { Carousel, CarouselSlide } from '@mantine/carousel';
 import {
   Box, Button, Center, Flex, Group,
   Image, NumberInput, Paper, Stack, Text, Title
 } from "@mantine/core";
 import { IconArrowRight, IconTestPipe } from '@tabler/icons-react';
-import { useState } from 'react';
-
 import placeholder from "../../../assets/image.png";
-import rooms from "../../../data/rooms.json";
+
+interface Room {
+  id: number;
+  roomName: string;
+  hotelName: string;
+  description: string;
+  price: number;
+  image?: string;
+}
 
 type Props = {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 };
 
-export default function Room({ params }: Props) {
-  const room = rooms[Number(params.id) - 1];
-  const [showNegotiation, setShowNegotiation] = useState(false);
-  const [proposedPrice, setProposedPrice] = useState('');
+export default async function RoomPage({ params }: Props) {
+  const res = await fetch(`http://localhost:8000/api/rooms/${params.id}`, {
+    cache: 'no-store',
+  });
 
-  const handleSubmit = () => {
-    console.log('Proposition envoyée :', proposedPrice);
-  };
+  if (!res.ok) return notFound();
+
+  const room: Room = await res.json();
 
   return (
     <Box mt="xl">
@@ -39,7 +42,11 @@ export default function Room({ params }: Props) {
       >
         {[...Array(5)].map((_, i) => (
           <CarouselSlide key={i}>
-            <Image src={placeholder.src} radius="md" h="100%" style={{ filter: showNegotiation ? 'blur(4px)' : 'none', transition: 'filter 0.3s ease' }}/>
+            <Image
+              src={room.image || placeholder.src}
+              radius="md"
+              h="100%"
+            />
           </CarouselSlide>
         ))}
       </Carousel>
@@ -66,46 +73,157 @@ export default function Room({ params }: Props) {
           </Text>
         </Flex>
 
-        {!showNegotiation && (
-          <>
-            <Text>{room.description}</Text>
+        <Text mt="md">{room.description}</Text>
 
-            <Flex align="center" gap="xs" mt="md">
-              <Text size="sm" fw={500}>découvrir l'hôtel</Text>
-              <IconArrowRight size={16} />
-            </Flex>
+        <Flex align="center" gap="xs" mt="md">
+          <Text size="sm" fw={500}>découvrir l'hôtel</Text>
+          <IconArrowRight size={16} />
+        </Flex>
 
-            <Box mt="md">
-              <Text fw="bold" fz="lg">Les + de la chambre</Text>
-              <Group p="lg" gap="xl" justify="center">
-                {Array(4).fill(null).map((_, i) => (
-                  <Stack key={i} justify="center" gap={5} mx="md">
-                    <IconTestPipe />
-                    Test
-                  </Stack>
-                ))}
-              </Group>
-            </Box>
-          </>
-        )}
+        <Box mt="md">
+          <Text fw="bold" fz="lg">Les + de la chambre</Text>
+          <Group p="lg" gap="xl" justify="center">
+            {Array(4).fill(null).map((_, i) => (
+              <Stack key={i} justify="center" gap={5} mx="md">
+                <IconTestPipe />
+                Test
+              </Stack>
+            ))}
+          </Group>
+        </Box>
 
         <Center mt="lg">
-          {!showNegotiation ? (
-            <Button onClick={() => setShowNegotiation(true)}>Faire une proposition !</Button>
-          ) : (
-            <Stack gap="sm" w="100%" maw={400}>
-              <Text fz="sm">
-                L'hôtelier vous répondra sous 3 heures. Attention, si votre offre est acceptée, vous n'aurez que 24h pour confirmer votre commande et réserver définitivement.
-              </Text>
-              <NumberInput
-                hideControls
-                placeholder="Proposition de prix (€)"
-                value={proposedPrice}
-                onChange={(val) => setProposedPrice(val?.toString() || '')}
-              />
-              <Button /* onClick={handleSubmit}  */component='a' href='/profile/negotiations'>Soumettre ma proposition</Button>
-            </Stack>
-          )}
+          <Stack gap="sm" w="100%" maw={400}>
+            <Text fz="sm">
+              L'hôtelier vous répondra sous 3 heures. Attention, si votre offre est acceptée, vous n'aurez que 24h pour confirmer votre commande et réserver définitivement.
+            </Text>
+            <NumberInput
+              hideControls
+              placeholder="Proposition de prix (€)"
+            />
+            <Button component='a' href='/profile/negotiations'>
+              Soumettre ma proposition
+            </Button>
+          </Stack>
+        </Center>
+      </Paper>
+    </Box>
+  );
+}
+ */
+
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import {
+  Box, Button, Center, Flex, Group,
+  Image, NumberInput, Paper, Stack, Text, Title
+} from "@mantine/core";
+import { IconArrowRight, IconTestPipe } from '@tabler/icons-react';
+import { Carousel, CarouselSlide } from '@mantine/carousel';
+import placeholder from '../../../assets/image.png';
+
+interface Room {
+  roomId: number;
+  roomName: string;
+  hotelName: string;
+  roomDescription: string;
+  roomBasePrice: number;
+  image?: string;
+}
+
+export default function RoomPage() {
+  const { id } = useParams();
+  const [room, setRoom] = useState<Room | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('searchResults');
+    if (stored) {
+      const parsed = JSON.parse(stored) as Room[];
+      const found = parsed.find((r) => String(r.roomId) === String(id));
+      if (found) setRoom(found);
+    }
+  }, [id]);
+
+  if (!room) return <Text>Chargement ou chambre introuvable</Text>;
+
+  return (
+    <Box mt="xl">
+      <Carousel
+        withIndicators
+        height={500}
+        slideSize={{ base: "100%", md: "33.3333%" }}
+        slideGap="md"
+        loop
+        align="center"
+        slidesToScroll={1}
+      >
+        {[...Array(5)].map((_, i) => (
+          <CarouselSlide key={i}>
+            <Image
+              src={room.image || placeholder.src}
+              radius="md"
+              h="100%"
+            />
+          </CarouselSlide>
+        ))}
+      </Carousel>
+
+      <Paper
+        shadow="md"
+        sx={{
+          borderTopLeftRadius: 'var(--mantine-radius-xl)',
+          borderTopRightRadius: 'var(--mantine-radius-xl)',
+          position: "relative"
+        }}
+        p="xl"
+        mt={-10}
+      >
+        <Flex justify="space-between" align="start" gap="md">
+          <Group gap={0}>
+            <Title fw="bold" size="xl" order={2}>
+              {room.roomName} -
+            </Title>
+            <Text>{" "}{room.hotelName}</Text>
+          </Group>
+          <Text fw="bold" fz="h2" fs="italic">
+            {room.roomBasePrice}<Text span fs="normal">€/nuit</Text>
+          </Text>
+        </Flex>
+
+        <Text mt="md">{room.roomDescription}</Text>
+
+        <Flex align="center" gap="xs" mt="md">
+          <Text size="sm" fw={500}>découvrir l'hôtel</Text>
+          <IconArrowRight size={16} />
+        </Flex>
+
+        <Box mt="md">
+          <Text fw="bold" fz="lg">Les + de la chambre</Text>
+          <Group p="lg" gap="xl" justify="center">
+            {Array(4).fill(null).map((_, i) => (
+              <Stack key={i} justify="center" gap={5} mx="md">
+                <IconTestPipe />
+                Test
+              </Stack>
+            ))}
+          </Group>
+        </Box>
+
+        <Center mt="lg">
+          <Stack gap="sm" w="100%" maw={400}>
+            <Text fz="sm">
+              L'hôtelier vous répondra sous 3 heures. Attention, si votre offre est acceptée, vous n'aurez que 24h pour confirmer votre commande et réserver définitivement.
+            </Text>
+            <NumberInput
+              hideControls
+              placeholder="Proposition de prix (€)"
+            />
+            <Button component='a' href='/profile/negotiations'>
+              Soumettre ma proposition
+            </Button>
+          </Stack>
         </Center>
       </Paper>
     </Box>

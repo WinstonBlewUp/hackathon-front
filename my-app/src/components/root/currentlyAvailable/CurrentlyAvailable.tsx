@@ -7,7 +7,8 @@ import Link from 'next/link';
 import defaultRooms from '@/data/rooms.json';
 
 interface Room {
-  id: number;
+  id?: number;
+  roomId?: number;
   hotelName: string;
   price: number;
   image?: string;
@@ -19,7 +20,6 @@ interface CurrentlyAvailableProps {
   hideTitle?: boolean;
 }
 
-
 export const CurrentlyAvailable = ({ rooms, hideTitle = false }: CurrentlyAvailableProps) => {
   const data = rooms ?? defaultRooms.filter((r) => r.status === 'free');
 
@@ -30,8 +30,8 @@ export const CurrentlyAvailable = ({ rooms, hideTitle = false }: CurrentlyAvaila
         {data.map((room) => (
           <Box
             component={Link}
-            key={room.id}
-            href={`/room/${room.id}`}
+            key={room.roomId || room.id}
+            href={`/room/${room.roomId || room.id}`}
             sx={{
               transition: 'transform 0.3s ease',
               display: 'block',
@@ -45,7 +45,6 @@ export const CurrentlyAvailable = ({ rooms, hideTitle = false }: CurrentlyAvaila
               picture={room.image || '/placeholder.png'}
               h={200}
             />
-
           </Box>
         ))}
       </GridLayout>

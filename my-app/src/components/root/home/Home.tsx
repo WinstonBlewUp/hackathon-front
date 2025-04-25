@@ -21,6 +21,7 @@ import { CategoriesLayout } from '../CategoriesLayout';
 import { link } from 'fs';
 import Link from 'next/link';
 
+
 export default function Home() {
   const [search, setSearch] = useState('');
   const filtered = rooms.filter((r) =>
