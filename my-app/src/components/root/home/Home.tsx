@@ -15,6 +15,7 @@ import { CategoriesLayout } from '../CategoriesLayout';
 import Link from 'next/link';
 import { Recommendation } from '../Recommendation';
 
+
 export default function Home() {
   return (
     <Box w="100%">
