@@ -130,10 +130,9 @@ export const getOpenNegotiations = async (user_id: string) => {
   }
 };
 
-export const getAdminNegotiationsOpen = async (user_id: string) => {
+export const getCategoryRoom = async (category_id: string) => {
   try {
-    const response = await instance.get(`/admin/negotiation/open/${user_id}`);
-    console.log(response);
+    const response = await instance.get(`/categories/${category_id}/room`);
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories", error);
@@ -141,4 +140,22 @@ export const getAdminNegotiationsOpen = async (user_id: string) => {
   }
 };
 
+export const getAdminNegotiationsOpen = async (user_id: string) => {
+  try {
+    const response = await instance.get(`/admin/negotiation/open/${user_id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+export const getUser = async (user_id: string) => {
+  try {
+    const response = await instance.get(`/users/${user_id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
 export default instance;

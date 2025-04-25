@@ -60,3 +60,22 @@ export type NegotiationData = {
   user: string; // URI type, e.g., "/api/users/2"
   room: RoomData; // URI type, e.g., "/api/rooms/96"
 };
+
+export type UserData = {
+  "@context": string;
+  "@id": string;
+  "@type": string;
+  id: number;
+  name: string;
+  firstname: string;
+  email: string;
+  password: string;
+  resetToken: string;
+  role: string[];
+  createdAt: string; // ISO 8601 date string
+  liked: string[]; // Array of URLs
+  payments: string[]; // Array of URLs
+  negociations: string[]; // Array of URLs
+  hotels: string[]; // Array of URLs
+  reservations: string[]; // Array of URLs
+};

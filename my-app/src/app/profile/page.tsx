@@ -1,4 +1,5 @@
 "use client"
+import { Name } from "@/components/profile/Name";
 import { NumberNight } from "@/components/profile/NumberNight";
 import { Box, Button, Flex, Group, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { IconArrowRight, IconCalendar, IconHeart, IconHeartHandshake } from "@tabler/icons-react";
@@ -13,8 +14,9 @@ export default function Profile() {
         <>
             <Group justify="space-between">
                 <Box>
-                    <Title fw="bold" order={1}>Nom prénom</Title>
-                    <Text c="dimmed">{session?.user?.email}</Text>
+                    {session?.user && (
+                        <Name user_id={session?.user.id} />
+                    )}
                 </Box>
                 <Flex align="center" gap="xs" component={Link} href={"/profile/update"} c="black" sx={{ textDecoration: "none" }}>
                     <Text size="sm" fw={500}>

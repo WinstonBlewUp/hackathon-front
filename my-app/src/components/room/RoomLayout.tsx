@@ -1,7 +1,7 @@
 "use client"
 import { Carousel, CarouselSlide } from '@mantine/carousel';
 
-import { Box, Button, Center, Flex, Group, Image, Paper, Stack, Text, Title, } from "@mantine/core";
+import { Box, Button, Center, Flex, Group, Image, NumberInput, Paper, Stack, Text, Title, } from "@mantine/core";
 import placeholder from "../../assets/image.png"
 import { IconArrowRight, IconTestPipe } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
@@ -14,6 +14,9 @@ export const RoomLayout = ({ id }: { id: string }) => {
     const [data, setData] = useState<RoomData>();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    const [showNegotiation, setShowNegotiation] = useState(false);
+    const [proposedPrice, setProposedPrice] = useState('');
     useEffect(() => {
         if (!session?.user) return
         const fetchCategories = async () => {
@@ -33,13 +36,14 @@ export const RoomLayout = ({ id }: { id: string }) => {
         };
 
         fetchCategories();
-    }, [session?.user]);
+    }, []);
     if (error) {
         return <Text c="red">Erreur: {error}</Text>;
     }
     if (loading) {
         return <Text>Chargement...</Text>;
     }
+    console.log(data)
     return (
         <Box mt="xl">
             <Carousel
@@ -71,14 +75,14 @@ export const RoomLayout = ({ id }: { id: string }) => {
                 <Flex justify="space-between" align="start" gap="md" >
                     <Group gap={0}>
                         <Title fw="bold" size="xl" order={2}>
-                            {data?.name} -
+                            {data?.roomName} -
                         </Title>
-                        <Text>{" "}{data?.hotel}</Text>
+                        <Text>{" "}{data?.hotelName}</Text>
                     </Group>
 
-                    <Text fw="bold" fz="h2" fs="italic">{data?.basePrice}<Text span fs="normal">€/nuit</Text></Text>
+                    <Text fw="bold" fz="h2" fs="italic">{data?.roomBasePrice}<Text span fs="normal">€/nuit</Text></Text>
                 </Flex>
-                <Text>{data?.description}</Text>
+                <Text>{data?.roomDescription}</Text>
                 <Flex align="center" gap="xs" mt="md">
                     <Text size="sm" fw={500}>
                         découvrir l'hôtel
@@ -106,8 +110,23 @@ export const RoomLayout = ({ id }: { id: string }) => {
                         </Stack>
                     </Group>
                 </Box>
-                <Center>
-                    <Button mx="auto">Faire une proposition !</Button>
+                <Center mt="lg">
+                    {!showNegotiation ? (
+                        <Button onClick={() => setShowNegotiation(true)}>Faire une proposition !</Button>
+                    ) : (
+                        <Stack gap="sm" w="100%" maw={400}>
+                            <Text fz="sm">
+                                L'hôtelier vous répondra sous 3 heures. Attention, si votre offre est acceptée, vous n'aurez que 24h pour confirmer votre commande et réserver définitivement.
+                            </Text>
+                            <NumberInput
+                                hideControls
+                                placeholder="Proposition de prix (€)"
+                                value={proposedPrice}
+                                onChange={(val) => setProposedPrice(val?.toString() || '')}
+                            />
+                            <Button /* onClick={handleSubmit}  */ component='a' href='/profile/negotiations'>Soumettre ma proposition</Button>
+                        </Stack>
+                    )}
                 </Center>
             </Paper>
         </Box>

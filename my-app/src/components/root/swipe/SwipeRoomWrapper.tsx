@@ -1,39 +1,19 @@
 'use client';
 
-import { useSpring, animated } from '@react-spring/web';
+import { useSpring } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-import { Box } from '@mantine/core';
-import { useState } from 'react';
 import rooms from '@/data/rooms.json';
 import { RoomMatchCard } from './Swipe';
+import { useEffect, useState } from 'react';
+import { RoomData } from '@/types/data';
+import { getCategoryRoom } from '@/lib/axios';
+import { Text } from '@mantine/core';
 
-export const SwipeRoomWrapper = () => {
+export const SwipeRoomWrapper = ({ id }: { id: string }) => {
+  const [data, setData] = useState<RoomData[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
-  const room = rooms[index];
-
-  const [{ x, y, rot, scale }, api] = useSpring(() => ({
-    x: 0, y: 0, rot: 0, scale: 1, config: { tension: 300, friction: 20 },
-  }));
-
-  const goToNext = () => {
-    setIndex((prev) => (prev + 1 < rooms.length ? prev + 1 : 0));
-  };
-
-  const handleLike = () => {
-    console.log('Liked:', room);
-    goToNext();
-  };
-
-  const handleDislike = () => {
-    console.log('Disliked:', room);
-    goToNext();
-  };
-
-  const handleNegotiate = () => {
-    console.log('Negotiate:', room);
-    window.location.href = `/room/${room.id}`;
-  };
-
   const bind = useDrag(
     ({ down, movement: [mx, my], direction: [dx, dy], velocity, cancel }) => {
       const trigger = velocity > 0.3;
@@ -63,16 +43,67 @@ export const SwipeRoomWrapper = () => {
     },
     { filterTaps: true }
   );
+  const [{ x, y, rot, scale }, api] = useSpring(() => ({
+    x: 0, y: 0, rot: 0, scale: 1, config: { tension: 300, friction: 20 },
+  }));
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getCategoryRoom(id);
+        if (response.success) {
+          console.log(response.data)
+          setData(response.data);
+        } else {
+          setError(response.error ?? "Error");
+        }
+      } catch (err) {
+        setError("Erreur de connexion");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!room) return <Box>Plus de chambres disponibles</Box>;
+    fetchCategories();
+  }, [id]);
+
+  if (error) {
+    return <Text c="red">Erreur: {error}</Text>;
+  }
+  if (loading || !data?.length) {
+    return <Text>Chargement...</Text>;
+  }
+  const room = data[index];
+
+
+
+  const goToNext = () => {
+    setIndex((prev) => (prev + 1 < rooms.length ? prev + 1 : 0));
+  };
+
+  const handleLike = () => {
+    console.log('Liked:', room);
+    goToNext();
+  };
+
+  const handleDislike = () => {
+    console.log('Disliked:', room);
+    goToNext();
+  };
+
+  const handleNegotiate = () => {
+    console.log('Negotiate:', room);
+    window.location.href = `/room/${room.roomId}`;
+  };
+
+
 
   return (
     <RoomMatchCard
-      room={room}
       onLike={handleLike}
       onDislike={handleDislike}
       onNegotiate={handleNegotiate}
       swipeProps={{ bind, animatedProps: { x, y, scale, rot } }}
+      room={room}
     />
   );
 };
