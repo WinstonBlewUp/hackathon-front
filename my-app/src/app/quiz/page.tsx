@@ -49,7 +49,6 @@ export default function Quiz() {
     const handleClick = async () => {
         setActive((current) => current + 1)
         if (data.length - 1 === active) {
-            console.log("lala")
             try {
                 console.log(dataRequest)
                 const response = await postQuiz(dataRequest);
@@ -79,8 +78,8 @@ export default function Quiz() {
                     </Stepper.Step>
                 ))}
                 <StepperCompleted>
-                    {dataRequest && (
-                        <Result request={dataRequest} />
+                    {dataResponse && (
+                        <Result rooms={dataResponse} />
                     )}
                 </StepperCompleted>
             </Stepper >
