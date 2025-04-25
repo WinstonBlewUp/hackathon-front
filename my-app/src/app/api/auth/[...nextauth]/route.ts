@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
             id: "1",
             name: "Admin",
             email: "admin@site.com",
-            role: "[ROLE_USER]",
+            role: "[ROLE_ADMIN]",
           };
         }
         return null;
