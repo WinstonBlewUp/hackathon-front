@@ -5,15 +5,19 @@ import { useDrag } from '@use-gesture/react';
 import rooms from '@/data/rooms.json';
 import { RoomMatchCard } from './Swipe';
 import { useEffect, useState } from 'react';
-import { RoomData } from '@/types/data';
-import { getCategoryRoom } from '@/lib/axios';
+import { PostNegotiationData, RoomData } from '@/types/data';
+import { getCategoryRoom, postNegotiation } from '@/lib/axios';
 import { Text } from '@mantine/core';
+import { useSession } from 'next-auth/react';
 
 export const SwipeRoomWrapper = ({ id }: { id: string }) => {
+  const { data: sessions } = useSession()
   const [data, setData] = useState<RoomData[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
+  const [requestData, setRequestData] = useState<PostNegotiationData>({ user_id: Number(sessions?.user.id) ?? 0, room_id: null, startDate: null, endDate: null, price: 0 })
+
   const bind = useDrag(
     ({ down, movement: [mx, my], direction: [dx, dy], velocity, cancel }) => {
       const trigger = velocity > 0.3;
@@ -72,8 +76,9 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
   if (loading || !data?.length) {
     return <Text>Chargement...</Text>;
   }
-  const room = data[index];
 
+
+  const room = data[index];
 
 
   const goToNext = () => {
@@ -90,9 +95,13 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
     goToNext();
   };
 
-  const handleNegotiate = () => {
-    console.log('Negotiate:', room);
-    window.location.href = `/room/${room.roomId}`;
+  const handleNegotiate = async () => {
+    try {
+      await postNegotiation({ price: requestData.price, room_id: room.roomId, user_id: requestData.user_id, startDate: requestData.startDate, endDate: requestData.endDate })
+    } catch (error) {
+      console.error("Erreur lors du refus de l'offre :", error);
+
+    }
   };
 
 
@@ -104,6 +113,8 @@ export const SwipeRoomWrapper = ({ id }: { id: string }) => {
       onNegotiate={handleNegotiate}
       swipeProps={{ bind, animatedProps: { x, y, scale, rot } }}
       room={room}
+      setRequestData={setRequestData}
+      requestData={requestData}
     />
   );
 };

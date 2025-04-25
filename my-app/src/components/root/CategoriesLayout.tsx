@@ -39,7 +39,7 @@ export const CategoriesLayout = () => {
                 {categories.map((category, key) =>
                     <Center
                         component={Link}
-                        href={`/category/${category.id}`}
+                        href={`/categories/${category.id}`}
                         key={key}
                         w="100%"
                         sx={{

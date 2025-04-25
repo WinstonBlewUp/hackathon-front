@@ -20,7 +20,13 @@ instance.interceptors.request.use(config => {
 export default instance;
  */
 
-import { CategoryData, QuizRequestData } from "@/types/data";
+import {
+  CategoryData,
+  NegotiationData,
+  PostNegotiationData,
+  PostResponseNegotiationData,
+  QuizRequestData,
+} from "@/types/data";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
@@ -152,6 +158,55 @@ export const getAdminNegotiationsOpen = async (user_id: string) => {
 export const getUser = async (user_id: string) => {
   try {
     const response = await instance.get(`/users/${user_id}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
+export const getNegotiationAccept = async (negotiation_id: string) => {
+  try {
+    const response = await instance.get(
+      `/negociations/${negotiation_id}/client/accept`
+    );
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
+export const postNegotiationClientUpdate = async (
+  negotiation: PostResponseNegotiationData
+) => {
+  try {
+    const response = await instance.post(
+      `/negociations/${negotiation.negociationId}/client`,
+      negotiation
+    );
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories", error);
+    return { success: false, data: [], error: "Erreur de connexion" };
+  }
+};
+
+export const postNegotiation = async ({
+  price,
+  room_id,
+  user_id,
+  startDate,
+  endDate,
+}: PostNegotiationData) => {
+  try {
+    const response = await instance.post(`/negociations`, {
+      requestPrice: price,
+      room_id,
+      user_id,
+      startDate,
+      endDate,
+    });
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories", error);

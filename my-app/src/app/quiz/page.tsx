@@ -44,7 +44,6 @@ export default function Quiz() {
     ]
     const handleClick = () => {
         if (data.length - 1 !== active) return setActive((current) => current + 1)
-        console.log(dataRequest)
         postQuiz(dataRequest);
 
     }

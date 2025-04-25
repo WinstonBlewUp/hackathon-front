@@ -50,8 +50,9 @@ export type QuizRequestData = {
 //   REFUSED_NO_DISP = "refusedNoDisp",
 // }
 export type NegotiationData = {
-  id: number;
+  negociationId: number;
   requestedPrice: number;
+
   status: string; // tu peux ajuster selon tes enums réels
   createdAt: string; // ISO 8601 date string
   responseAt: string; // ISO 8601 date string
@@ -78,4 +79,17 @@ export type UserData = {
   negociations: string[]; // Array of URLs
   hotels: string[]; // Array of URLs
   reservations: string[]; // Array of URLs
+};
+
+export type PostResponseNegotiationData = Pick<
+  NegotiationData,
+  "negociationId" | "isClose" | "status"
+>;
+
+export type PostNegotiationData = {
+  room_id: RoomData["roomId"] | null;
+  user_id: UserData["id"];
+  startDate: string | null;
+  endDate: string | null;
+  price: number;
 };

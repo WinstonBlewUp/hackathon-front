@@ -1,12 +1,13 @@
 'use client';
 
-import { Box, Button, Flex, Group, Image, Paper, Stack, Text, Title } from '@mantine/core';
+import { Box, Button, Flex, Group, Image, NumberInput, Paper, Stack, Text, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconArrowRight, IconTestPipe } from '@tabler/icons-react';
-import { useState } from 'react';
+import { IconArrowRight, IconCalendar, IconTestPipe } from '@tabler/icons-react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useDrag } from '@use-gesture/react';
 import placeholder from '@/assets/image.png';
-import { RoomData } from '@/types/data';
+import { PostNegotiationData, RoomData } from '@/types/data';
+import { DatePickerInput } from '@mantine/dates';
 
 
 interface RoomMatchCardProps {
@@ -14,9 +15,11 @@ interface RoomMatchCardProps {
   onDislike?: () => void;
   onNegotiate?: () => void;
   room: RoomData
+  setRequestData: Dispatch<SetStateAction<PostNegotiationData | undefined>>
+  request: number
 }
 
-export const RoomMatchCard = ({ onLike, onDislike, onNegotiate, room }: RoomMatchCardProps) => {
+export const RoomMatchCard = ({ request, setRequestData, onLike, onDislike, onNegotiate, room }: RoomMatchCardProps) => {
 
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -88,7 +91,7 @@ export const RoomMatchCard = ({ onLike, onDislike, onNegotiate, room }: RoomMatc
 
   return (
     <Box pt="lg"  >
-      <Flex gap="xl" h="70vh" pos="absolute">
+      <Flex gap="xl" h="80vh" pos="absolute">
         <div
           {...bind()}
           style={{
@@ -146,7 +149,20 @@ export const RoomMatchCard = ({ onLike, onDislike, onNegotiate, room }: RoomMatc
                 </Button>
               </Flex>
 
-              <Button size="md" color="dark" onClick={onNegotiate}>Négocier</Button>
+              <Stack>
+                <DatePickerInput
+                  leftSection={<IconCalendar size={18} stroke={1.5} />}
+                  type="range"
+                  label="Pick dates range"
+                  placeholder="Pick dates range"
+                  withAsterisk
+                  value={[request.startDate, request?.endDate]}
+                  onChange={(value) => setRequestData((prev) => ({ ...prev, startDate: value[0], endDate: value[1] }))}
+                  clearable
+                />
+                <NumberInput value={request} onChange={(value) => setRequestData(value.current.target)} />
+                <Button size="md" color="dark" onClick={onNegotiate}>Négocier</Button>
+              </Stack>
             </Stack>
           </Flex>
         </Paper>

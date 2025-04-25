@@ -1,10 +1,14 @@
 'use client';
 import { SwipeRoomWrapper } from '@/components/root/swipe/SwipeRoomWrapper';
+import React from 'react';
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
+
 export default function SwipePage({ params }: Props) {
-  return <SwipeRoomWrapper id={params.id} />;
+  const { id } = React.use(params);
+
+  return <SwipeRoomWrapper id={id} />;
 }

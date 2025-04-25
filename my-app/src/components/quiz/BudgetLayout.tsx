@@ -1,7 +1,7 @@
 "use client"
 
 import { QuizRequestData } from '@/types/data';
-import { Chip, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { Box, Checkbox, Group, NumberInput, Stack } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar, IconUser } from '@tabler/icons-react';
