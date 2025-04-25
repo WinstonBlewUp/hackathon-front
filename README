@@ -1,0 +1,75 @@
+# Application de mise en relation Client-Hôtelier
+
+Ce projet est une application web développée avec Next.js qui permet la mise en relation entre clients et hôteliers.
+
+## Prérequis
+
+- Node.js (version 14.x ou supérieure recommandée)
+- npm ou yarn
+
+## Installation
+
+1. Clonez le dépôt :
+```
+git clone [URL_DU_REPO]
+cd my-app
+```
+
+2. Installez les dépendances :
+```
+npm install
+```
+
+3. Installez les dépendances supplémentaires pour les animations et les gestes :
+```
+npm install @react-spring/web @use-gesture/react --legacy-peer-deps
+```
+
+## Démarrage de l'application
+
+Pour lancer l'application en mode développement :
+```
+npm run dev
+```
+
+L'application sera accessible à l'adresse [http://localhost:3000](http://localhost:3000).
+
+## Fonctionnalités
+
+- Système de matching entre clients et hôteliers
+- [Ajoutez ici les autres fonctionnalités principales]
+
+## Structure du projet
+
+```
+my-app/
+├── components/
+│   ├── [Vos composants React]
+├── pages/
+│   ├── api/
+│   ├── [Vos pages Next.js]
+├── public/
+│   ├── [Ressources statiques]
+├── styles/
+│   ├── [Vos fichiers CSS/SCSS]
+```
+
+## Technologies utilisées
+
+- Next.js
+- React
+- React Spring (@react-spring/web) - Pour les animations
+- Use Gesture (@use-gesture/react) - Pour la gestion des interactions tactiles
+- [Autres technologies utilisées]
+
+## Déploiement
+
+[Instructions pour le déploiement de votre application]
+
+## Contribution
+
+[Instructions pour contribuer au projet]
+
+## Licence
+
+[Informations sur la licence]
