@@ -11,7 +11,7 @@ export default function RegistryPage() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
-    const [birthday, setBirthday] = useState<Date>()
+    const [birthday, setBirthday] = useState<Date | null>()
 
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +28,7 @@ export default function RegistryPage() {
                 <TextInput value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
                 <PasswordInput value={password} onChange={e => setPassword(e.target.value)} placeholder="Mot de passe" />
                 <PasswordInput value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Comfirme ton mot de passe" />
-                {/* <DateInput value={birthday} onChange={e => setBirthday(e)} placeholder="Ton anniversaire" /> */}
+                <DateInput value={birthday} onChange={setBirthday} placeholder="Ton anniversaire" />
                 <Button type="submit" fullWidth>Inscription</Button>
             </Stack>
             <Button href="/login" component={Link} variant="transparent" fullWidth mt="lg">Déjà un compte ? Se connecter</Button>

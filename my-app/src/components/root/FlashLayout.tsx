@@ -34,7 +34,6 @@ export const FlashLayout = ({
   maxItems = 5,
   direction = 'row',
 }: FlashLayoutProps) => {
-    console.log('direction', direction);
   return (
     <Stack component="article" gap="xl" w="100%" style={{ maxWidth: '100vw' }}>
       <Box px="xs" w="100%">

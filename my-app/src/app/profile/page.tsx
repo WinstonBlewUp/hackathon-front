@@ -1,4 +1,5 @@
 "use client"
+import { NumberNight } from "@/components/profile/NumberNight";
 import { Box, Button, Flex, Group, Paper, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { IconArrowRight, IconCalendar, IconHeart, IconHeartHandshake } from "@tabler/icons-react";
 // OPEN GDS
@@ -32,7 +33,7 @@ export default function Profile() {
                     <Text ta="center">d'économie en moyenne</Text>
                 </Stack>
                 <Stack align="center" maw={300}>
-                    <Text fw="bold" fz="h1" ta="center">20</Text>
+                    <NumberNight />
                     <Text ta="center">nuits passés dans nos hotels partenaires</Text>
                 </Stack>
             </Group>
