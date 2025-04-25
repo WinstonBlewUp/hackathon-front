@@ -22,8 +22,8 @@ export type RoomData = {
 };
 
 export type QuizRequestData = {
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: string | null;
+  endDate: string | null;
   maxGuests: number;
   criteriaHotel: {
     children: boolean;
@@ -50,8 +50,9 @@ export type QuizRequestData = {
 //   REFUSED_NO_DISP = "refusedNoDisp",
 // }
 export type NegotiationData = {
-  id: number;
+  negociationId: number;
   requestedPrice: number;
+
   status: string; // tu peux ajuster selon tes enums réels
   createdAt: string; // ISO 8601 date string
   responseAt: string; // ISO 8601 date string
@@ -59,4 +60,36 @@ export type NegotiationData = {
   isClose: boolean;
   user: string; // URI type, e.g., "/api/users/2"
   room: RoomData; // URI type, e.g., "/api/rooms/96"
+};
+
+export type UserData = {
+  "@context": string;
+  "@id": string;
+  "@type": string;
+  id: number;
+  name: string;
+  firstname: string;
+  email: string;
+  password: string;
+  resetToken: string;
+  role: string[];
+  createdAt: string; // ISO 8601 date string
+  liked: string[]; // Array of URLs
+  payments: string[]; // Array of URLs
+  negociations: string[]; // Array of URLs
+  hotels: string[]; // Array of URLs
+  reservations: string[]; // Array of URLs
+};
+
+export type PostResponseNegotiationData = Pick<
+  NegotiationData,
+  "negociationId" | "isClose" | "status"
+>;
+
+export type PostNegotiationData = {
+  room_id: RoomData["roomId"] | null;
+  user_id: UserData["id"];
+  startDate: string | null;
+  endDate: string | null;
+  price: number;
 };

@@ -1,10 +1,11 @@
 "use client";
-import { Alert, Box, Button, Card, CardSection, Flex, Grid, GridCol, Group, Loader, Progress, Stack, Text, Title } from "@mantine/core"
+import { Alert, Box, Button, Card, Center, Flex, Group, Loader, Paper, Progress, Stack, Text, Title } from "@mantine/core"
 import { CardRoomComponent } from "../CardRoomComponent"
 import { useEffect, useState } from "react";
 import { IconAlertCircle, IconBuildingSkyscraper, IconCalendar, IconClock, IconThumbDown, IconX } from "@tabler/icons-react";
-import { calculateDuration, formatDate, formatTime } from "./utils";
+import { calculateDuration, formatDate, formatTime } from "../utils";
 import { NegotiationData } from "@/types/data";
+import { getNegotiationAccept, postNegotiationClientUpdate } from "@/lib/axios";
 const STATUS = {
     PENDING_HOTELIER: 'pendingHotelier',
     PENDING_CLIENT: 'pendingClient',
@@ -16,9 +17,7 @@ const SECONDS = {
     HOUR: 3600,
     DAY: 86400,
 };
-export const CardNegotiation = ({ room, status, createdAt, responseAt, challengePrice }: NegotiationData) => {
-    status = STATUS.PENDING_HOTELIER
-    console.log(status, room.hotelName, room.roomBasePrice)
+export const CardNegotiation = ({ room, negociationId, status, requestedPrice, createdAt, responseAt, challengePrice }: NegotiationData) => {
 
     const createdAtDate = new Date(createdAt);
     const responseAtDate = new Date(responseAt);
@@ -34,26 +33,77 @@ export const CardNegotiation = ({ room, status, createdAt, responseAt, challenge
     // Dates de réservation fixes
     const checkInDate = new Date(2025, 4, 18); // 15 mai 2025
     const checkOutDate = new Date(2025, 4, 18); // 18 mai 2025
-    const isCounterOffer = status === STATUS.PENDING_CLIENT && challengePrice
-    // Simulation du changement d'état pour la démo
-    const handleReservation = () => {
-
-    };
 
     // Décliner l'offre
-    const handleDecline = () => {
-        alert("Offre déclinée. Vous serez redirigé vers d'autres options.");
+    const handleDecline = async () => {
+        try {
+            await postNegotiationClientUpdate({
+                status: STATUS.REFUSED_CLIENT,
+                isClose: true,
+                negociationId,
+            });
+
+            // tu peux déclencher une notif ou autre ici
+        } catch (error) {
+            console.error("Erreur lors du refus de l'offre :", error);
+            // afficher une notification ou un message d'erreur
+        }
     };
 
+    const handleClose = async () => {
+        try {
+            await postNegotiationClientUpdate({
+                status,
+                isClose: true,
+                negociationId,
+            })
+            // tu peux déclencher une notif ou autre ici
+        } catch (error) {
+            console.error("Erreur lors du refus de l'offre :", error);
+            // afficher une notification ou un message d'erreur
+        }
+
+    };
+
+
+    const handleAccept = async () => {
+        try {
+            await getNegotiationAccept(String(negociationId))
+
+            // tu peux déclencher une notif ou autre ici
+        } catch (error) {
+            console.error("Erreur lors du refus de l'offre :", error);
+            // afficher une notification ou un message d'erreur
+        }
+
+        // REDIRECTION
+    };
     // Comptes à rebours
     useEffect(() => {
         if (timeLeft > 0) {
             const timer = setTimeout(() => {
                 setTimeLeft((prev) => prev - 1);
             }, 1000);
+
             return () => clearTimeout(timer);
+        } else {
+            (async () => {
+                try {
+                    await postNegotiationClientUpdate({
+                        status: status === STATUS.PENDING_HOTELIER
+                            ? STATUS.REFUSED_HOTELIER
+                            : STATUS.REFUSED_CLIENT,
+                        isClose: status === STATUS.REFUSED_CLIENT,
+                        negociationId,
+                    });
+                } catch (error) {
+                    console.error("Erreur lors du changement automatique de statut :", error);
+                }
+            })();
         }
     }, [timeLeft]);
+
+
     const totalTime = status === STATUS.PENDING_HOTELIER ? 3 * SECONDS.HOUR : SECONDS.DAY;
 
 
@@ -90,30 +140,40 @@ export const CardNegotiation = ({ room, status, createdAt, responseAt, challenge
                 </Box>
 
                 {/* Affichage des dates de réservation */}
-                <Box bg="gray.1" p="xs" sx={{ borderRadius: "var(--mantinue-radius-sm)" }} >
-                    <Group gap="xs" mb="xs">
-                        <IconCalendar size={16} />
-                        <Text size="sm" fw={500}>Dates de séjour</Text>
-                    </Group>
-                    <Group>
-                        <Box>
-                            <Text size="xs" c="dimmed">Arrivée</Text>
-                            <Text size="sm">{formatDate(checkInDate)}</Text>
-                        </Box>
-                        <Box>
-                            <Text size="xs" c="dimmed">Départ</Text>
-                            <Text size="sm">{formatDate(checkOutDate)}</Text>
-                        </Box>
-                        <Box>
-                            <Text size="xs" c="dimmed">Durée</Text>
-                            <Text size="sm">{calculateDuration({ checkInDate, checkOutDate })} nuits</Text>
-                        </Box>
-                    </Group>
-                </Box>
+                <Group>
+                    <Box bg="gray.1" p="xs" sx={{ borderRadius: "var(--mantinue-radius-md)" }} h="100%">
+                        <Group gap="xs" mb="xs">
+                            <IconCalendar size={16} />
+                            <Text size="sm" fw={500}>Dates de séjour</Text>
+                        </Group>
+                        <Group>
+                            <Box>
+                                <Text size="xs" c="dimmed">Arrivée</Text>
+                                <Text size="sm">{formatDate(checkInDate)}</Text>
+                            </Box>
+                            <Box>
+                                <Text size="xs" c="dimmed">Départ</Text>
+                                <Text size="sm">{formatDate(checkOutDate)}</Text>
+                            </Box>
+                            <Box>
+                                <Text size="xs" c="dimmed">Durée</Text>
+                                <Text size="sm">{calculateDuration({ checkInDate, checkOutDate })} nuits</Text>
+                            </Box>
+                        </Group>
+                    </Box>
+                    <Alert bg="blue.0" c="white" radius="sm" p="xs" w={{ base: "100%", lg: "fit-content", }} h="100%">
+                        <Text size="xs">Prix soumis</Text>
+                        <Text size="xl">{requestedPrice}<Text span> €/nuit</Text> </Text>
+
+                    </Alert>
+
+                </Group>
 
                 <Flex justify="space-between" align="center" mt="xs">
                     <Text fw={700} size="lg">
-                        {room.roomBasePrice}€ <Text component="span" size="sm" fw={400} c="dimmed">/ nuit</Text>
+                        <Text component="span" size="sm" fw={400} c="dimmed">Prix final : </Text>
+                        {challengePrice ?? requestedPrice}€
+                        <Text component="span" size="sm" fw={400} c="dimmed">/ nuit</Text>
                     </Text>
 
                     {status === STATUS.PENDING_CLIENT && (
@@ -145,7 +205,7 @@ export const CardNegotiation = ({ room, status, createdAt, responseAt, challenge
                         <Button
                             leftSection={<IconCalendar size={18} />}
                             fullWidth
-                            onClick={handleReservation}
+                            onClick={handleAccept}
                         >
                             Réserver maintenant
                         </Button>
@@ -180,6 +240,14 @@ export const CardNegotiation = ({ room, status, createdAt, responseAt, challenge
                             variant="light"
                         >
                             Désolé, cette chambre n'est plus disponible aux dates sélectionnées.
+                            <Button
+                                variant="subtle"
+                                color="red"
+                                leftSection={<IconThumbDown size={18} />}
+                                onClick={handleClose}
+                            >
+                                Fermer l'offre
+                            </Button>
                         </Alert>
                     </Stack>
                 )}
@@ -195,6 +263,14 @@ export const CardNegotiation = ({ room, status, createdAt, responseAt, challenge
                         >
                             L'hôtelier n'a pas pu accepter votre réservation pour cette période.
                             Nous vous recommandons d'essayer d'autres dates ou un autre hôtel.
+                            <Button
+                                variant="subtle"
+                                color="red"
+                                leftSection={<IconThumbDown size={18} />}
+                                onClick={handleClose}
+                            >
+                                Fermer l'offre
+                            </Button>
                         </Alert>
 
                     </Stack>

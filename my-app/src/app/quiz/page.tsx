@@ -4,10 +4,13 @@ import { ServiceLayout } from "@/components/quiz/ServiceLayout";
 import { Button, Group, Stepper, StepperCompleted } from "@mantine/core";
 import { useState } from "react";
 import { Result } from "@/components/quiz/Result";
-import { QuizRequestData } from "@/types/data";
+import { QuizRequestData, RoomData } from "@/types/data";
 import { postQuiz } from "@/lib/axios";
 export default function Quiz() {
     const [active, setActive] = useState(0);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
     const [dataRequest, setDataRequest] = useState<QuizRequestData>({
         startDate: null,
         endDate: null,
@@ -27,6 +30,7 @@ export default function Quiz() {
             category: null,
         },
     })
+    const [dataResponse, setDataResponse] = useState<RoomData[]>()
     const data = [
         {
             label: "Séjour",
@@ -42,11 +46,25 @@ export default function Quiz() {
                 <ServiceLayout data={dataRequest} setData={setDataRequest} />
         }
     ]
-    const handleClick = () => {
-        if (data.length - 1 !== active) return setActive((current) => current + 1)
-        console.log(dataRequest)
-        postQuiz(dataRequest);
-
+    const handleClick = async () => {
+        setActive((current) => current + 1)
+        if (data.length - 1 === active) {
+            try {
+                console.log(dataRequest)
+                const response = await postQuiz(dataRequest);
+                console.log(response)
+                if (response.success) {
+                    console.log(response.data)
+                    setDataResponse(response.data);
+                } else {
+                    setError(response.error ?? "Error");
+                }
+            } catch (err) {
+                setError("Erreur de connexion");
+            } finally {
+                setLoading(false);
+            }
+        };
     }
     return (
         <>
@@ -60,8 +78,8 @@ export default function Quiz() {
                     </Stepper.Step>
                 ))}
                 <StepperCompleted>
-                    {dataRequest && (
-                        <Result request={dataRequest} />
+                    {dataResponse && (
+                        <Result rooms={dataResponse} />
                     )}
                 </StepperCompleted>
             </Stepper >

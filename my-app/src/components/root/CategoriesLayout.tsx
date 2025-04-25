@@ -1,7 +1,9 @@
+"use client"
 import { Box, Center, SimpleGrid, Text, Title } from "@mantine/core";
 import { getCategories } from "@/lib/axios";
 import { CategoryData } from "@/types/data";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 export const CategoriesLayout = () => {
     const [categories, setCategories] = useState<CategoryData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -36,12 +38,17 @@ export const CategoriesLayout = () => {
             <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="xl">
                 {categories.map((category, key) =>
                     <Center
+                        component={Link}
+                        href={`/categories/${category.id}`}
                         key={key}
                         w="100%"
                         sx={{
                             borderRadius: "var(--mantine-radius-md)",
-                            border: `1px solid var(--mantine-color-gray-3)`
+                            border: `1px solid var(--mantine-color-gray-3)`,
+                            textDecoration: "none",
+
                         }}
+                        c="dark"
                         py="lg"
                     >
                         <Text tt="capitalize">{category.label}</Text>
